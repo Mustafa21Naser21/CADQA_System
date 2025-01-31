@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+*{
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+:root{
+    --primary-color:#8B171C;
+    --secondary-color:#540C0F;
+    --thierd-color:#270405;
+}
+
+body{
+    direction:rtl;
+    font-family:"Cairo", serif;    
+}
+.english-text{
+    font-family:"Roboto", serif;
+}
+.ltr{
+    direction:ltr;
+}
+.logo-footer div{
+    background-image: url('/src/assets/logo cadqa.png');
+    background-size:auto;
+    background-position:center;
+}
+
+@media  (max-width:1024px) {
+    
+    .slider-img{
+        width:500px !important;
+    }
+    .title-slider{
+        width:500px !important;
+    }
+    .login-form{
+        width:400px  !important;
+    }
+}
+
+@media  (max-width:820px) {
+    
+    .slider-img{
+        width:400px !important;
+    }
+    .title-slider{
+        width:400px !important;
+    }
+    .login-form{
+        width:350px  !important;
+    }
+}
+@media  (max-width:768px){
+
+    .footer{
+        height: 270px;
+    }
+    .slider-img{
+        width:350px !important;
+    }
+    .title-slider{
+        width:350px !important;
+    }
+    .login-form{
+        width:350px  !important;
+    }
+    .phone{
+        width: 350px !important;
+    }
+
+}
+
+@media  (max-width:450px){
+
+    .footer{
+        height: 700px;
+    }
+    .slider-img{
+        width:100% !important;
+    }
+    .title-slider{
+        width:100% !important;
+    }
+    .login-form{
+        width:350px  !important;
+    }
+    .phone{
+        width: 350px !important;
+    }
+
+}
