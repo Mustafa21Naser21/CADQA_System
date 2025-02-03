@@ -27,7 +27,34 @@ body{
     background-size:auto;
     background-position:center;
 }
-
+.sidebar{
+    background: rgb(172,119,119);
+    background: linear-gradient(90deg, rgba(172,119,119,1) 0%, rgba(139,23,28,1) 70%);  
+}
+.sidebar-content h2:hover{
+    transform: translateY(-5px);
+}
+.home-content{
+    transform: translateY(0px);
+}
+.home-content h1::before{
+    content:'';
+    position:absolute;
+    width:18rem;
+    height: 2px;
+    background-color:#616161;
+    top:20px;
+    left: 60px;
+}
+.home-content h1::after{
+    content:'';
+    position:absolute;
+    width:18rem;
+    height: 2px;
+    background-color:#616161; 
+    top:20px;
+    right: 60px;  
+}
 @media  (max-width:1024px) {
     
     .slider-img{

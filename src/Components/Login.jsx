@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from "swiper/react";
 import {  Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -82,7 +83,7 @@ export default function Login() {
 
             <h2 style={{color:'#4C5A88'}} className='mt-2 text-sm english-text text-end ml-22 transition-opacity hover:opacity-80 max-xl:ml-14 max-lg:ml-8'><a href="">?forgot your password</a></h2>
 
-            <button style={{backgroundColor:'var(--primary-color)'}} className='w-40 h-14 mt-8 text-xl rounded-xl  text-white cursor-pointer transition-opacity hover:opacity-80'>تسجيل الدخول</button>
+            <button style={{backgroundColor:'var(--primary-color)'}} className='w-40 h-14 mt-8 text-xl rounded-xl  text-white cursor-pointer transition-opacity hover:opacity-80'> <Link to="Academic_Staff_Interface">تسجيل الدخول</Link> </button>
           </form>
 
         </div>
