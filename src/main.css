@@ -40,20 +40,23 @@ body{
 .home-content h1::before{
     content:'';
     position:absolute;
-    width:18rem;
+    width:30%;
     height: 2px;
     background-color:#616161;
     top:20px;
-    left: 60px;
+    left:5%;
 }
 .home-content h1::after{
     content:'';
     position:absolute;
-    width:18rem;
+    width:30%;
     height: 2px;
     background-color:#616161; 
     top:20px;
-    right: 60px;  
+    right: 5%;  
+}
+.sidebar-icon{
+    transform: translateY(-100px);
 }
 @media  (max-width:1024px) {
     
@@ -79,6 +82,16 @@ body{
     .login-form{
         width:350px  !important;
     }
+    .home-content h1::before{
+        width:22%;
+        left:3%;
+    }
+    .home-content h1::after{
+        width:22%;
+        right:3%;
+    }
+
+    
 }
 @media  (max-width:768px){
 
@@ -116,6 +129,12 @@ body{
     }
     .phone{
         width: 350px !important;
+    }
+    .home-content h1::before{
+        width:0;
+    }
+    .home-content h1::after{
+        width:0;
     }
 
 }
