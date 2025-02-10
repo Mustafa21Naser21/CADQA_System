@@ -34,10 +34,8 @@ body{
 .sidebar-content h2:hover{
     transform: translateY(-5px);
 }
-.home-content{
-    transform: translateY(0px);
-}
-.home-content h1::before{
+
+.title h1::before{
     content:'';
     position:absolute;
     width:30%;
@@ -45,8 +43,9 @@ body{
     background-color:#616161;
     top:20px;
     left:5%;
+
 }
-.home-content h1::after{
+.title h1::after{
     content:'';
     position:absolute;
     width:30%;
@@ -57,6 +56,19 @@ body{
 }
 .sidebar-icon{
     transform: translateY(-100px);
+}
+.centerd{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+}
+.colleges{
+display:grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 2rem;
+justify-items: center;
 }
 @media  (max-width:1024px) {
     
@@ -82,11 +94,11 @@ body{
     .login-form{
         width:350px  !important;
     }
-    .home-content h1::before{
+    .title h1::before{
         width:22%;
         left:3%;
     }
-    .home-content h1::after{
+    .title h1::after{
         width:22%;
         right:3%;
     }
@@ -130,10 +142,10 @@ body{
     .phone{
         width: 350px !important;
     }
-    .home-content h1::before{
+    .title h1::before{
         width:0;
     }
-    .home-content h1::after{
+    .title h1::after{
         width:0;
     }
 

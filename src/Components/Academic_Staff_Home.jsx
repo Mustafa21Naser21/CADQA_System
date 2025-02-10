@@ -41,7 +41,7 @@ export default function Academic_Staff_Home() {
         </div>
           
          {/*  محتوى الصفحة الرئيسية  */}
-        <div className="home-content w-full grid grid-cols-1  ">
+        <div className="academic-staff-home-content  title w-full grid grid-cols-1  ">
 
            {/*  الشهادات */}
         <h1 style={{color:'#540C0F'}} className=' text-center mt-20 mb-10 relative text-4xl font-bold max-sm:mb-16 '>الشهادات</h1> 
