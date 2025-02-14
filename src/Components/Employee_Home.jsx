@@ -46,28 +46,28 @@ export default function Employee_Home() {
        {/*  التسليمات  */}
       <div style={{color:'var(--primary-color)'}} className="deliverables flex  justify-evenly gap-y-10 flex-wrap text-center mt-16 text-xl duration-300">
           {/*  التسليمات المعلقة  */}
-        <div style={{borderColor:'var(--secondary-color)',backgroundColor:'CCCCCC'}} className='w-70 h-74 grid grid-cols-1   justify-items-center border rounded-2xl'>
+        <div style={{borderColor:'var(--secondary-color)',backgroundColor:'CCCCCC'}} className='w-70 h-74 grid grid-cols-1   justify-items-center border rounded-2xl max-sm:w-64 max-sm:h-66'>
           <h1 className='mt-4'>التسليمات المعلقة</h1>
           <div className='border-8 border-b-orange-950 text-center mt-2 rounded-full w-28 h-28'>
             <h2 className='mt-8'>64%</h2>
           </div>
-          <button style={{backgroundColor:'var(--primary-color)'}} className='text-white text-base w-36 h-12 rounded-lg cursor-pointer'>مراجعة التسليمات</button>
+          <button style={{backgroundColor:'var(--primary-color)'}} className='text-white text-base w-36 h-12 rounded-lg cursor-pointer transition-opacity hover:opacity-80'>مراجعة التسليمات</button>
         </div>
         {/* المتطلبات التي تم تسليمها*/}
-        <div style={{borderColor:'var(--secondary-color)',backgroundColor:'CCCCCC'}} className='w-70 h-74 grid grid-cols-1   justify-items-center border rounded-2xl'>
+        <div style={{borderColor:'var(--secondary-color)',backgroundColor:'CCCCCC'}} className='w-70 h-74 grid grid-cols-1   justify-items-center border rounded-2xl max-sm:w-64 max-sm:h-66'>
           <h1 className='mt-4'>المتطلبات التي تم تسليمها </h1>
           <div className='border-8 border-b-orange-950 text-center mt-2 rounded-full w-28 h-28'>
             <h2 className='mt-8'>80%</h2>
           </div>
-          <button style={{backgroundColor:'var(--primary-color)'}} className='text-white text-base w-36 h-12 rounded-lg cursor-pointer'>مراجعة التسليمات</button>
+          <button style={{backgroundColor:'var(--primary-color)'}} className='text-white text-base w-36 h-12 rounded-lg cursor-pointer transition-opacity hover:opacity-80'>مراجعة التسليمات</button>
         </div>
         {/*  التسليمات المرفوضة  */}
-        <div style={{borderColor:'var(--secondary-color)',backgroundColor:'CCCCCC'}} className='w-70 h-74 grid grid-cols-1   justify-items-center border rounded-2xl'>
+        <div style={{borderColor:'var(--secondary-color)',backgroundColor:'CCCCCC'}} className='w-70 h-74 grid grid-cols-1   justify-items-center border rounded-2xl max-sm:w-64 max-sm:h-66'>
           <h1 className='mt-4'>التسليمات المرفوضة </h1>
           <div className='border-8 border-b-orange-950 text-center  rounded-full w-28 h-28'>
             <h2 className='mt-8'>30%</h2>
           </div>
-          <button style={{backgroundColor:'var(--primary-color)'}} className='text-white text-base w-36 h-12 rounded-lg cursor-pointer'>مراجعة التسليمات</button>
+          <button style={{backgroundColor:'var(--primary-color)'}} className='text-white text-base w-36 h-12 rounded-lg cursor-pointer transition-opacity hover:opacity-80'>مراجعة التسليمات</button>
         </div>
 
       </div>
