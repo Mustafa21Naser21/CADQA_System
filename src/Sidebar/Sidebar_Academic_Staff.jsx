@@ -23,7 +23,7 @@ export default function Sidebar_Academic_Staff({open,setOpen}) {
             <div style={{fontSize:'80px'}} className='personal-photo w-36 h-32 rounded-full bg-white text-black mr-4'> 
               <i className="fa-solid fa-user py-6 px-8"/> 
               </div>
-            <div className="name w-58 h-12 rounded-3xl translate-x-5 bg-white text-black text-lg font-bold p-2 mt-10 pr-4 max-lg:h-16 max-lg:mt-8 "> <h1> د.رقية عامر الصرايرة</h1></div>
+            <div className="name w-58 h-12 rounded-3xl translate-x-5 bg-white text-black text-lg font-bold p-2 mt-10 pr-6 max-lg:h-16 max-lg:mt-8 "> <h1> د.رقية عامر الصرايرة</h1></div>
         </div>
 
       {/* محتوى الشريط الجانبي */}

@@ -1,35 +1,36 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
-import Sidebar_Employee from '../Sidebar/Sidebar_Employee';
+import Sidebar_Manager from '../Sidebar/Sidebar_Manager';
 
-export default function Employee_Home() {
+export default function Manager_Home() {
 
-  const [open, setOpen] = useState(window.innerWidth > 640); // مغلق  على الشاشات الصغيرة
+    const [open, setOpen] = useState(window.innerWidth > 640); // مغلق  على الشاشات الصغيرة
           
-      useEffect(() => {
-        const handleResize = () => {
-        if (window.innerWidth <= 640) {
-        setOpen(false);   
-        } else {
-        setOpen(true);    
-       }
-    };
-          
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
- }, []); 
+    useEffect(() => {
+      const handleResize = () => {
+      if (window.innerWidth <= 640) {
+      setOpen(false);   
+      } else {
+      setOpen(true);    
+     }
+  };
+        
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []); 
+
   return (
     <>
       <section>
-      <div className="employee-page w-full flex justify-between">
+      <div className="manager-page w-full flex justify-between">
 
       {/*  side bar */}
               
-      <Sidebar_Employee open={open} setOpen={setOpen}/> 
+      <Sidebar_Manager open={open} setOpen={setOpen}/> 
 
       
       {/*  الصفحة الرئيسية */}
-      <div className={`employee-home ${open ? 'mr-90 max-lg:mr-76' : 'mr-20 max-lg:mr-16'}  duration-200 flex-1 justify-items-center`}>
+      <div className={`manager-home ${open ? 'mr-90 max-lg:mr-76' : 'mr-20 max-lg:mr-16'}  duration-200 flex-1 justify-items-center`}>
 
      {/* خانة البحث */}
     <div class="search-bar mt-6  relative">
@@ -41,7 +42,7 @@ export default function Employee_Home() {
      </div>
 
       {/*  محتوى الصفحة الرئيسية  */}
-     <div className="employee-home-content w-full grid grid-cols-1  ">
+     <div className="manager-home-content w-full grid grid-cols-1  ">
 
        {/*  التسليمات  */}
       <div style={{color:'var(--primary-color)'}} className="deliverables flex  justify-evenly gap-y-10 flex-wrap text-center mt-16 text-xl duration-300">
@@ -124,6 +125,7 @@ export default function Employee_Home() {
 
       </div>
       </div>
+
       </section>
     </>
   )

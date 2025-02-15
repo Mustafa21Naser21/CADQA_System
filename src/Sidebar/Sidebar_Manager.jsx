@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Sidebar_Employee({open,setOpen}) {
+export default function Sidebar_Manager({open,setOpen}) {
   return (
     <>
-        <div
+           <div
       style={{ height: "100vh" }}
       className={`fixed flex-1 duration-300 text-white rounded-l-4xl sidebar  ${
         open ? "w-90 max-lg:w-72 max-sm:w-72 max-sm:z-10" : "w-20 max-sm:w-16"
@@ -20,7 +20,7 @@ export default function Sidebar_Employee({open,setOpen}) {
             <div style={{fontSize:'80px'}} className='personal-photo w-36 h-32 rounded-full bg-white text-black mr-4'> 
               <i className="fa-solid fa-user py-6 px-8"/> 
               </div>
-            <div className="name w-58 h-12 rounded-3xl translate-x-5 bg-white text-black text-lg font-bold p-2 mt-10 pr-6 max-lg:h-16 max-lg:mt-8 "> <h1>اسامة الكفاوين</h1></div>
+            <div className="name w-58 h-12 rounded-3xl translate-x-5 bg-white text-black text-lg font-bold p-2 mt-10 pr-6 max-lg:h-16 max-lg:mt-8 "> <h1> بكر محمد  العضاية</h1></div>
         </div>
 
       {/* محتوى الشريط الجانبي */}
@@ -57,7 +57,7 @@ export default function Sidebar_Employee({open,setOpen}) {
           <h2 className={`text-xl text-white cursor-pointer  duration-300 ${!open && "scale-0"}`}>الإعدادات</h2>
         </div>
       </div>
-    </div>
+    </div> 
     </>
   )
 }
