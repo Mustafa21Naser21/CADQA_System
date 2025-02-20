@@ -34,7 +34,9 @@ body{
 .sidebar-content h2:hover{
     transform: translateY(-5px);
 }
-
+.sidebar-content-manager h2:hover{
+    transform: translateY(-5px);
+}
 .title h1::before{
     content:'';
     position:absolute;
@@ -43,7 +45,6 @@ body{
     background-color:#616161;
     top:20px;
     left:5%;
-
 }
 .title h1::after{
     content:'';
@@ -57,18 +58,23 @@ body{
 .sidebar-icon{
     transform: translateY(-100px);
 }
+.sidebar-icon-manager{
+    transform: translateY(-120px);
+}
 .centerd{
-    position:absolute;
+    position:relative;
     top:50%;
     left:50%;
-    transform:translate(-50%,-50%);
-    text-align:center;
+    transform:translate(-50%,-50%); 
 }
 .colleges{
 display:grid;
 grid-template-columns: repeat(3, 1fr);
 gap: 2rem;
 justify-items: center;
+}
+.sidebar-content-manager{
+  transform: translateY(-15px);  
 }
 @media  (max-width:1024px) {
     
@@ -109,9 +115,9 @@ justify-items: center;
     .colleges{
         grid-template-columns: repeat(2, 1fr);
     }
-
-    
+  
 }
+
 @media  (max-width:768px){
 
     .footer{
@@ -158,6 +164,5 @@ justify-items: center;
     .colleges{
         grid-template-columns: repeat(1, 1fr);
     }
-
 
 }

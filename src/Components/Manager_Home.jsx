@@ -46,6 +46,7 @@ export default function Manager_Home() {
 
        {/*  التسليمات  */}
       <div style={{color:'var(--primary-color)'}} className="deliverables flex  justify-evenly gap-y-10 flex-wrap text-center mt-16 text-xl duration-300">
+
           {/*  التسليمات المعلقة  */}
         <div style={{borderColor:'var(--secondary-color)',backgroundColor:'CCCCCC'}} className='w-70 h-74 grid grid-cols-1   justify-items-center border rounded-2xl max-sm:w-64 max-sm:h-66'>
           <h1 className='mt-4'>التسليمات المعلقة</h1>
@@ -74,59 +75,31 @@ export default function Manager_Home() {
       </div>
        
       <div className="title relative mt-20">
+
       <h1 style={{color:'var(--secondary-color)'}} className='text-3xl text-center block '>الكليات</h1>
       </div>
 
       {/*   الكليات  */}
-      <div className="colleges title   text-white text-center mt-20 relative text-2xl duration-300 ">
+      <div className="colleges title text-white text-center mt-20  text-2xl duration-300 ">
         
+        {[
+        "كلية الطب","كلية تكنولوجيا المعلومات","كلية الهندسة","كلية الاعمال",
+        "كلية الاداب","كلية الشريعة","كلية العلوم","كلية الصيدلة",
+        "كلية الرياضة","كلية العلوم التربوية","كلية التمريض","كلية طب الاسنان"
+      ].map((college, index) => (
         <div style={{backgroundColor:'#611013'}} className=' w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
-          <h2 className='centerd'>كلية الطب</h2>
-        </div>
-        <div style={{backgroundColor:'#611013'}} className=' w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
-          <h2 className='centerd'> كلية تكنولوجيا المعلومات</h2>
-        </div>
-        <div style={{backgroundColor:'#611013'}} className=' w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
-          <h2 className='centerd'>كلية الهندسة</h2>
-        </div>
-        <div style={{backgroundColor:'#611013'}} className=' w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
-          <h2 className='centerd'>كلية الاعمال</h2>
-        </div>
-        <div style={{backgroundColor:'#611013'}} className=' w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
-          <h2 className='centerd'>كلية الاداب</h2>
-        </div>
-        <div style={{backgroundColor:'#611013'}} className=' w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
-          <h2 className='centerd'>كلية الشريعة</h2>
-        </div>
-        <div style={{backgroundColor:'#611013'}} className=' w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
-          <h2 className='centerd'>كلية العلوم</h2>
-        </div>
-        <div style={{backgroundColor:'#611013'}} className=' w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
-          <h2 className='centerd'>كلية الصيدلة</h2>
-        </div>
-        <div style={{backgroundColor:'#611013'}} className=' w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
-          <h2 className='centerd'>كلية الرياضة</h2>
-        </div>
-        <div style={{backgroundColor:'#611013'}} className=' w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
-          <h2 className='centerd'>كلية العلوم التربوية</h2>
-        </div>
-        <div style={{backgroundColor:'#611013'}} className=' w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
-          <h2 className='centerd'>كلية التمريض </h2>
-        </div>
-        <div style={{backgroundColor:'#611013'}} className=' w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
-          <h2 className='centerd'>كلية طب الاسنان </h2>
-        </div>
-
+          <h2 className='centerd' key={index}>{college}</h2>
+          </div>
+      ))}
       </div>
       
 
       </div>
 
-
       </div>
       </div>
-
       </section>
     </>
   )
 }
+
