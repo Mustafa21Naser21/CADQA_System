@@ -71,9 +71,10 @@ export default function Login() {
           </div>
 
         </div>
-
-        <div style={{backgroundColor:'#F0EFEF',border:'solid 2px #CFCFCF',width:'480px',height:'550px'}} className='login-form text-center ml-30 mt-20  rounded-3xl w-1/2 max-xl:ml-16 max-lg:ml-8 max-sm:mr-8 max-sm:mb-8'>
-          <img className='w-24 mr-48 mt-8 bg-gray-400 max-xl:mr-36 max-lg:mr-30' src="/src/assets/logo cadqa.png" alt="" />
+         
+         <div className=' w-1/2 flex justify-center translate-x-8 max-xl:translate-x-0 max-sm:w-full'>
+        <div style={{backgroundColor:'#F0EFEF',border:'solid 2px #CFCFCF',width:'480px',height:'550px'}} className='login-form text-center  mt-20  rounded-3xl  max-sm:mb-8'>
+          <img className='w-24 mr-48 mt-8  max-xl:mr-36 max-lg:mr-30' src="/src/assets/cadqa login.svg" alt="" />
           <h1 style={{color:'#3F3F3F'}} className='text-4xl english-text'>Log Into</h1>
           <h1 style={{color:'#3F3F3F'}} className='text-4xl english-text'>CADQA System</h1>
 
@@ -87,6 +88,7 @@ export default function Login() {
           </form>
 
         </div>
+        </div>
 
       </div>
     </section>
@@ -97,7 +99,7 @@ export default function Login() {
          <div className="logo-footer  w-1/5 mt-10 px-2 max-sm:w-auto">
 
          <div style={{}} className='w-32  h-32 ml-10 px-2 rounded-full max-lg:ml-0'>
-          <img className='w-2 h-2 rounded-full hidden' src="/src/assets/cadqa logo.svg" alt="" />
+          <img className='w-2 h-2 rounded-full hidden' src="/src/assets/cadqa login.svg" alt="" />
          </div>
 
          </div>
