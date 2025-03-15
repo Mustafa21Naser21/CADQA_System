@@ -2,6 +2,61 @@ import React from 'react'
 import { useState,useEffect } from 'react';
 import Sidebar_Manager from '../Sidebar/Sidebar_Manager'
 import { Bar } from "react-chartjs-2";
+import Select from "react-select";
+    
+
+const customStyles = {
+  control: (styles) => ({
+    ...styles,
+    backgroundColor: "white",
+    color: "#8B171C",
+    width:'200px',
+    hegiht:'50px',
+    padding:'5px',
+    border:'2px solid #8B171C',
+    borderRadius:'5px',
+    boxShadow: "none",
+    "&:hover": { borderColor: "#8B171C" },
+  }),
+  singleValue: (base) => ({
+    ...base,
+    color: "#8B171C", // لون النص عند اختيار الخيار
+  }),
+  option: (styles, { isFocused }) => ({
+    ...styles,
+    backgroundColor: isFocused ? "#8B171C" : "white",
+    color: isFocused ? "white" : "#8B171C",
+    cursor: "pointer",
+  }),
+};
+
+{/* بيانات اختيار الكلية */}
+const optionCollege = [
+  { value: "", label: "كلية تكنولوجيا المعلومات" },
+  { value: "", label: "كلية الرياضة" },
+  { value: "", label: "كلية الهندسة" },
+  { value: "", label: "كلية الطب" },
+  { value: "", label: "كلية الاعمال" },
+  { value: "", label: "كلية الاداب" },
+  { value: "", label: "كلية العلوم" },
+  { value: "", label: "كلية طب الاسنان" },
+  { value: "", label: "كلية الصيدلة" },
+  { value: "", label: "كلية التمريض" },
+  { value: "", label: "كلية الحقوق" },
+  { value: "", label: "كلية العلوم التربوية" },
+  { value: "", label: "كلية العلوم الاجتماعية" },
+  { value: "", label: "كلية اللغات" },
+];
+
+{/* بيانات اختيار القسم */}
+const optionDepartment = [
+  { value: "", label: "هندسة البرمجيات" },
+  { value: "", label: "الذكاء الاصطناعي و علوم البيانات" },
+  { value: "", label: " علوم الحاسوب" },
+  { value: "", label: " امن المعلومات" },
+  { value: "", label: " نظم المعلومات" },
+
+];
 
 
 export default function Manager_Statistics() {
@@ -67,26 +122,12 @@ export default function Manager_Statistics() {
        <h1 style={{color:'var(--secondary-color)'}} className='text-4xl text-center font-bold mt-6'>تقارير و احصائيات</h1>
         
         {/* بيانات الاحصائيات */}
-       <div className='px-10 mt-20 grid grid-cols-1 justify-items-center'>
+       <div style={{}} className='px-10 mt-20 grid grid-cols-1 justify-items-center'>
          
           {/*  اختيار الكلية و القسم */}
-        <div className=' flex justify-around w-full '>
-        <select className=" w-60 border-2 border-[#8B171C]  text-[#8B171C] bg-white rounded-md px-3 py-2 focus:outline-none " name="" id=""
-         onFocus={(e) => e.target[0].remove()}>
-            <option value="">إختر الكلية</option>
-            <option value="">كلية تكنولوجيا المعلومات</option>
-            <option value="">كلية الرياضة</option>
-            <option value="">كلية الهندسة</option>
-            <option value="">كلية الطب</option>
-         </select>
-         <select className=" w-60 border-2 border-[#8B171C] text-[#8B171C] bg-white rounded-md px-3 py-2 focus:outline-none" name="" id=""
-         onFocus={(e) => e.target[0].remove()}>
-            <option value="">إختر القسم</option>
-            <option value="">هندسة البرمجيات</option>
-            <option value="">علوم البيانات و الذكاء الاصطناعي</option>
-            <option value="">علوم الحاسوب</option>
-            <option value="">امن المعلومات</option>
-         </select>
+        <div className=' flex justify-evenly w-full gap-x-5 px-4 '>
+        <Select  styles={customStyles} options={optionCollege} isSearchable={false} placeholder="إختر الكلية"  />
+        <Select  styles={customStyles} options={optionDepartment} isSearchable={false} placeholder="إختر القسم"  />
         </div>
          
           {/*  المخطط البياني */}

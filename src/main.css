@@ -84,7 +84,13 @@ canvas{
     width: 800px !important;
     height: 500px !important;
 }
-
+select option {
+    cursor: pointer;
+}
+option :hover{
+    color:white;
+    background-color: var(--secondary-color);
+}
 
 
 @media  (max-width:1024px) {

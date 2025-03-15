@@ -1,5 +1,52 @@
 import React,{useState} from 'react';
 import {Link} from 'react-router-dom';
+import Select from "react-select";
+    
+
+const customStyles = {
+  control: (styles) => ({
+    ...styles,
+    backgroundColor: "white",
+    color: "#8B171C",
+    width:'200px',
+    hegiht:'50px',
+    padding:'5px',
+    border:'2px solid #8B171C',
+    borderRadius:'5px',
+    boxShadow: "none",
+    "&:hover": { borderColor: "#8B171C" },
+  }),
+  menu: (base) => ({
+    ...base,
+    width: "200px", // اجعل القائمة بنفس حجم select
+  }),
+  singleValue: (base) => ({
+    ...base,
+    color: "#8B171C", // لون النص عند اختيار الخيار
+  }),
+  option: (styles, { isFocused }) => ({
+    ...styles,
+    backgroundColor: isFocused ? "#8B171C" : "white",
+    color: isFocused ? "white" : "#8B171C",
+    cursor: "pointer",
+  }),
+};
+
+{/* بيانات اختيار الفئة الرئيسية */}
+const optionMainCategory = [
+  { value: "", label: "كلية تكنولوجيا المعلومات" },
+  { value: "", label: "كلية الرياضة" },
+  { value: "", label: "كلية الهندسة" },
+
+];
+
+{/* بيانات اختيار المجلد الفرعي */}
+const optionSubFolder = [
+  { value: "", label: "كلية تكنولوجيا المعلومات" },
+  { value: "", label: "كلية الرياضة" },
+  { value: "", label: "كلية الهندسة" },
+
+];
 
 export default function Sidebar_Manager({ open, setOpen }) {
 
@@ -157,15 +204,13 @@ export default function Sidebar_Manager({ open, setOpen }) {
           </div>
           {/* اختيار الفئة الرئيسية و المجلد الفرعي select */}
           <div className='pr-6 mt-8'>
+
             <h3 style={{fontSize:'12px'}} className=' text-gray-700 mb-2 '>*يرجى اختيار الفئة التي سيتم ربط هذا المجلد بها.</h3>
-            <select className='w-50 border-2 border-[#8B171C] text-[#8B171C] bg-white rounded-md p-1 focus:outline-none' name="" id="">
-              <option value="">الفئة الرئيسية</option>
-            </select>
+            <Select  styles={customStyles} options={optionMainCategory} isSearchable={false} placeholder="الفئة الرئيسية "  />
 
             <h3 style={{fontSize:'12px'}} className=' text-gray-700 mb-2 mt-4 ml-4'>اختر المجلد الحاوي إذا كنت تريد تخزين المجلد داخله (إختياري)</h3>
-            <select className='w-50 border-2 border-[#8B171C] text-[#8B171C] bg-white rounded-md p-1 focus:outline-none' name="" id="">
-              <option value="">المجلد الفرعي</option>
-            </select>
+            <Select  styles={customStyles} options={optionSubFolder} isSearchable={false} placeholder="المجلد الفرعي"  />
+
           </div>
         </div>
 
