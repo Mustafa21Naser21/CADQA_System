@@ -8,11 +8,12 @@ export default function Manager_Home() {
     const [open, setOpen] = useState(window.innerWidth > 640); // مغلق  على الشاشات الصغيرة
           
     const chartsRef = useRef([]);
-    const chartInstances = useRef([]); // تخزين الكائنات لإنهائها عند إعادة الإنشاء
+    const chartInstances = useRef([]); 
   
+    // البيانات المتعلقة بالتسليمات
     const chartData = [
-      { title: "التسليمات المعلقة", percentage: 64, color: "#8B171C" },
-      { title: "المتطلبات التي تم تسليمها", percentage: 80, color: "#8B171C" },
+      { title: "التسليمات المعلقة", percentage: 55, color: "#8B171C" },
+      { title: "المتطلبات التي تم تسليمها", percentage: 95, color: "#8B171C" },
       { title: "التسليمات المرفوضة", percentage: 30, color: "#8B171C" },
     ];
 
@@ -124,7 +125,7 @@ export default function Manager_Home() {
      <div className="manager-home-content w-full grid grid-cols-1  ">
 
        {/*  التسليمات  */}
-       <div style={{ color: "var(--primary-color)" }} className="deliverables flex justify-evenly gap-y-10 flex-wrap text-center mt-16 text-xl duration-300">
+       <div  className="deliverables flex justify-evenly gap-y-10 flex-wrap text-[#8B171C] text-center mt-16 text-xl duration-300">
           {chartData.map((item, index) => (
             <div key={index} className="w-70 h-74 grid grid-cols-1 justify-items-center border rounded-2xl bg-gray-300 max-sm:w-64 max-sm:h-66">
             <h1 className="mt-4">{item.title}</h1>
@@ -137,7 +138,7 @@ export default function Manager_Home() {
         </div>
        
       <div className="title relative mt-20">
-      <h1 style={{color:'var(--secondary-color)'}} className='text-3xl text-center block '>الكليات</h1>
+      <h1  className='text-3xl text-[#540C0F] text-center block '>الكليات</h1>
       </div>
 
       {/*   الكليات  */}
@@ -148,14 +149,14 @@ export default function Manager_Home() {
         "كلية الاداب","كلية الشريعة","كلية العلوم","كلية الصيدلة",
         "كلية الرياضة","كلية العلوم التربوية",
         "كلية التمريض","كلية طب الاسنان"].map((college, index) => (
-        <div style={{backgroundColor:'#611013'}} className=' w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
+        <div  className=' w-46 h-46 bg-[#611013] relative rounded-2xl cursor-pointer hover:scale-105 duration-300'>
           <h2 className='centerd' key={index}>{college}</h2>
-          </div>
+        </div>
       ))}
       </div>
+    
       
       </div>
-
       </div>
       </div>
       </section>

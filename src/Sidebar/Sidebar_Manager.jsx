@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Select from "react-select";
     
@@ -54,7 +54,18 @@ export default function Sidebar_Manager({ open, setOpen }) {
   const [addFolder,setAddFolder]=useState(false);
   const [uploadFile,setUploadFile]=useState(false);
   const [isOn, setIsOn] = useState(false);
-
+  const [showActivites,setShowActivites] = useState(false);
+ 
+  // اغلاق سجل النشاطات بعد 5 ثواني من الضغط
+  useEffect(() => {
+    if (showActivites) {
+      const timer = setTimeout(() => {
+        setShowActivites(false);
+      }, 5000); 
+  
+      return () => clearTimeout(timer);
+    }
+  }, [showActivites]);
 
   return (
     <>
@@ -95,8 +106,8 @@ export default function Sidebar_Manager({ open, setOpen }) {
           { icon: "fa-house", title: "الرئيسية", src:'/Manager_Home', border: true },
           { icon: "fa-file-circle-plus", title: "رفع ملف جديد",action: () => { setUploadFile(true); setAddCategory(false); setAddFolder(false); } },
           { icon: "fa-file-lines", title: "التسليمات",src:'' },
-          { icon: "fa-clock-rotate-left", title: "سجل النشاطات",src:'', border: true },
-          { icon: "fa-folder-open", title: "إدارة الملفات",src:'', },
+          { icon: "fa-clock-rotate-left", title: "سجل النشاطات", action: () => { setShowActivites(!showActivites)}, border: true },
+          { icon: "fa-folder-open", title: "إدارة الملفات", },
           { icon: "fa-file-pen", title: "إنشاء فئة جديدة",action: () => { setAddCategory(true); setAddFolder(false); setUploadFile(false); }},
           { icon: "fa-folder-plus", title: "إضافة مجلد جديد", action: () => { setAddFolder(true); setAddCategory(false); setUploadFile(false); }, border: true },
           { icon: "fa-chart-simple", title: "تقارير وإحصائيات",src:'/Manager_Statistics', },
@@ -118,7 +129,7 @@ export default function Sidebar_Manager({ open, setOpen }) {
                 open ? "" : "translate-x-4 py-2 max-sm:translate-x-6"
                 
               }`}
-              onClick={()=> setAddCategory(true)}
+             
             />
             </Link>
 
@@ -127,9 +138,16 @@ export default function Sidebar_Manager({ open, setOpen }) {
               className={`text-xl text-white cursor-pointer duration-300 ${
                 !open && "hidden"
               }`} 
-               onClick={()=> setAddCategory(true)}
+               
             >
               {item.title}
+               
+              {item.title === "سجل النشاطات" && showActivites && (
+             <div className="">
+             <h3 className="text-gray-400 text-sm mb-2 mt-2 cursor-pointer hover:text-gray-200">سجل الزمني</h3>
+             <h3 className="text-gray-400 text-sm cursor-pointer hover:text-gray-200">سجل الموظفين</h3>
+             </div>
+              )}
             </h2>
             </Link>
           </div>
@@ -179,7 +197,7 @@ export default function Sidebar_Manager({ open, setOpen }) {
        
        {/* اضافة مجلد جديد */}
       <div className={`add-category  z-100 shadow-2xl  ${addFolder ? "block" : "hidden"}`}>
-      <div className={`bg-gray-100 w-150 h-95 fixed top-1/4 rounded-2xl duration-300 ${open ? 'right-130 max-xl:right-95 max-lg:right-60' : 'right-100 max-xl:right-60  max-lg:right-40'} max-xl:top-40  max-lg:w-130 max-md:right-17 max-md:w-85 max-md:h-140 max-md:top-30` }>
+      <div className={`bg-gray-100 w-150 h-95 fixed top-1/4 rounded-2xl duration-300 ${open ? 'right-130 max-xl:right-95 max-lg:right-60' : 'right-100 max-xl:right-60  max-lg:right-40'} max-xl:top-40  max-lg:w-130 max-md:right-17 max-md:w-85 max-md:h-145 max-md:top-30` }>
         <h1 className='text-3xl mt-4 text-[#540C0F] text-center font-bold'>إضافة مجلد جديد</h1>
         <div className='flex justify-between max-md:block max-md:pr-6'>
           <div className='pr-6 mt-6'>

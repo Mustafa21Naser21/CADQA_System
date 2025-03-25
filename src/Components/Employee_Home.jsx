@@ -8,8 +8,8 @@ export default function Employee_Home() {
   const chartInstances = useRef([]); // تخزين الكائنات لإنهائها عند إعادة الإنشاء
 
   const chartData = [
-    { title: "التسليمات المعلقة", percentage: 64, color: "#8B171C" },
-    { title: "المتطلبات التي تم تسليمها", percentage: 80, color: "#8B171C" },
+    { title: "التسليمات المعلقة", percentage: 55, color: "#8B171C" },
+    { title: "المتطلبات التي تم تسليمها", percentage: 95, color: "#8B171C" },
     { title: "التسليمات المرفوضة", percentage: 30, color: "#8B171C" },
   ];
 
@@ -111,9 +111,9 @@ export default function Employee_Home() {
             {/*  محتوى الصفحة الرئيسية */}
             <div className="employee-home-content w-full grid grid-cols-1">
               {/*  التسليمات */}
-              <div style={{ color: "var(--primary-color)" }} className="deliverables flex justify-evenly gap-y-10 flex-wrap text-center mt-16 text-xl duration-300">
+              <div  className="deliverables flex justify-evenly gap-y-10 flex-wrap text-[#8B171C] text-center mt-16 text-xl duration-300">
                 {chartData.map((item, index) => (
-                  <div key={index} style={{ borderColor: "var(--secondary-color)", backgroundColor: "#CCCCCC" }} className="w-70 h-74 grid grid-cols-1 justify-items-center border rounded-2xl max-sm:w-64 max-sm:h-66">
+                  <div key={index}  className="w-70 h-74 bg-[#CCCCCC] text-[#540C0F] grid grid-cols-1 justify-items-center border rounded-2xl max-sm:w-64 max-sm:h-66">
                     <h1 className="mt-4">{item.title}</h1>
                     <canvas ref={(el) => (chartsRef.current[index] = el)} className="w-28 h-28 mt-2">
                       
@@ -127,7 +127,7 @@ export default function Employee_Home() {
 
               {/*  عنوان الكليات */}
               <div className="title relative mt-20">
-                <h1 style={{ color: "var(--secondary-color)" }} className="text-3xl text-center block">
+                <h1  className="text-3xl text-[#540C0F] text-center block">
                   الكليات
                 </h1>
               </div>
@@ -139,7 +139,7 @@ export default function Employee_Home() {
                    "كلية الاعمال","كلية الاداب","كلية الشريعة",
                     "كلية العلوم","كلية الصيدلة","كلية الرياضة","كلية العلوم التربوية",
                     "كلية التمريض","كلية طب الاسنان",].map((college, index) => (
-                  <div key={index} style={{ backgroundColor: "#611013" }} className="w-46 h-46 relative rounded-2xl cursor-pointer hover:scale-105 duration-300">
+                  <div key={index}  className="w-46 h-46 bg-[#611013] relative rounded-2xl cursor-pointer hover:scale-105 duration-300">
                     <h2 className="centerd">{college}</h2>
                   </div>
                 ))}

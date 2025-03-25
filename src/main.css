@@ -84,12 +84,8 @@ canvas{
     width: 800px !important;
     height: 500px !important;
 }
-select option {
-    cursor: pointer;
-}
-option :hover{
-    color:white;
-    background-color: var(--secondary-color);
+input[type="checkbox"] {
+    accent-color: var(--primary-color); /* غيّر اللون إلى أي لون تريده */
 }
 
 
@@ -195,8 +191,7 @@ option :hover{
     }
     .statistics canvas{
         width: 350px !important;
-        height: 600px !important;
-        
+        height: 600px !important;    
     }
 
 }

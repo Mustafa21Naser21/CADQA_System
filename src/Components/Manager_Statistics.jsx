@@ -10,13 +10,17 @@ const customStyles = {
     ...styles,
     backgroundColor: "white",
     color: "#8B171C",
-    width:'200px',
+    width:'200px',  // حجم select
     hegiht:'50px',
     padding:'5px',
     border:'2px solid #8B171C',
     borderRadius:'5px',
     boxShadow: "none",
     "&:hover": { borderColor: "#8B171C" },
+  }),
+  menu: (base) => ({
+    ...base,
+    width: "200px",  // حجم select عند الاختيار 
   }),
   singleValue: (base) => ({
     ...base,
@@ -115,23 +119,24 @@ export default function Manager_Statistics() {
       <Sidebar_Manager open={open} setOpen={setOpen}/> 
        
        {/* صفحة الاحصائيات*/}
-      <div className={` ${open ? 'mr-90 max-lg:mr-76' : 'mr-20 max-lg:mr-16'}  duration-200 flex-1 justify-items-center`}>
+      <div className={` ${open ? 'mr-90 max-lg:mr-76' : 'mr-20 max-lg:mr-16  '}  duration-200 flex-1 justify-items-center`}>
        
        {/*  محتوى صفحة الاحصائيات*/}
       <div className=" w-full grid grid-cols-1  ">
-       <h1 style={{color:'var(--secondary-color)'}} className='text-4xl text-center font-bold mt-6'>تقارير و احصائيات</h1>
+
+       <h1  className='text-4xl text-[#540C0F] text-center font-bold mt-6'>تقارير و احصائيات</h1>
         
         {/* بيانات الاحصائيات */}
-       <div style={{}} className='px-10 mt-20 grid grid-cols-1 justify-items-center'>
+       <div className='mt-20 grid grid-cols-1 justify-items-center'>
          
           {/*  اختيار الكلية و القسم */}
-        <div className=' flex justify-evenly w-full gap-x-5 px-4 '>
+        <div className=' flex justify-evenly w-full gap-x-5 px-4 max-sm:flex-col max-sm:gap-y-5 max-sm: '>
         <Select  styles={customStyles} options={optionCollege} isSearchable={false} placeholder="إختر الكلية"  />
         <Select  styles={customStyles} options={optionDepartment} isSearchable={false} placeholder="إختر القسم"  />
         </div>
          
           {/*  المخطط البياني */}
-        <div className='statistics mt-6 w-full flex justify-center'>
+        <div className='statistics mt-6 w-full flex justify-center '>
 
         <Bar  data={data} options={options}/>
 
@@ -139,14 +144,14 @@ export default function Manager_Statistics() {
          
           {/*  تصدير تقارير الاحصائيات button */}
         <div className='mt-10 mb-10'>
-          <button style={{backgroundColor:'var(--secondary-color)'}} className='w-64 h-14 text-white text-xl rounded-3xl py-2 px-4 cursor-pointer transition-opacity hover:opacity-80'>تصدير تقرير الاحصائيات</button>
+          <button  className='w-64 h-14 bg-[#540C0F] text-white text-xl rounded-3xl py-2 px-4 cursor-pointer transition-opacity hover:opacity-80'>تصدير تقرير الاحصائيات</button>
         </div>
 
-    </div>
-      </div>
-       </div> 
         </div>
-         </section>
+        </div>
+        </div> 
+        </div>
+        </section>
     </>
   )
 }
