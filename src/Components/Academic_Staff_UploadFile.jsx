@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState,useEffect } from 'react';
-import Sidebar_Manager from '../Sidebar/Sidebar_Manager'
 import Select from "react-select";
+import Sidebar_Academic_Staff from '../Sidebar/Sidebar_Academic_Staff';
 
 
 // select style
@@ -10,7 +10,7 @@ const customStyles = {
     ...styles,
     backgroundColor: "white",
     color: "#8B171C",
-    width:'200px',  //  حجم select
+    width:'300px',  //  حجم select
     height:'50px',
     padding:'5px',
     border:'2px solid #8B171C',
@@ -20,7 +20,7 @@ const customStyles = {
   }),
   menu: (base) => ({
     ...base,
-    width: "200px", //  حجم select عند الاختيار   
+    width: "300px", //  حجم select عند الاختيار   
   }),
   singleValue: (base) => ({
     ...base,
@@ -43,8 +43,7 @@ const optionCollege = [
 ];
 
 
-
-export default function Manager_UploadFile() {
+export default function Academic_Staff_UploadFile() {
 
     const [open, setOpen] = useState(window.innerWidth > 640);
     const [fileNames, setFileNames] = useState([]);
@@ -76,35 +75,27 @@ export default function Manager_UploadFile() {
   return (
     <>
     <section>
-    <div className="manager-page w-full flex justify-between">
+    <div className="academic-staff-page w-full flex justify-between">
 
       {/*  side bar */}
-      <Sidebar_Manager open={open} setOpen={setOpen}/> 
+      <Sidebar_Academic_Staff open={open} setOpen={setOpen}/> 
        
        {/* صفحة رفع ملف جديد*/}
-      <div className={` ${open ? 'mr-90 max-lg:mr-76' : 'mr-20 max-lg:mr-25'}  duration-200 flex-1 justify-items-center mb-10`}>
+      <div className={` ${open ? 'mr-90 max-lg:mr-76 ' : 'mr-20 max-lg:mr-25 '}  duration-200 flex-1 justify-items-center mb-10`}>
        
        {/*  محتوى صفحة رفع ملف جديد*/}
       <div className={` ${!open ? 'max-lg:mr-20 max-xl:mr-0' : 'mr-0'} w-full grid grid-cols-1 max-sm:justify-items-start`} >
 
         <h1 className='text-4xl text-[#540C0F] font-bold text-center mt-6'>رفع ملف جديد</h1>
         
-        {/* اختيار الفئة و المجلد */}
-        <div className='flex gap-x-10 mt-20 max-xl:gap-x-5 max-xl:flex-wrap max-lg:flex-col'>
+        {/* اختيار المتطلب المراد تسليمه */}
+        <div className='flex gap-x-10 mt-20 mb-5 max-xl:gap-x-5 max-xl:flex-wrap max-lg:flex-col'>
           <div className='mr-10 max-lg:mr-2 max-sm:mr-0'>
-            <h2 className='text-2xl font-bold text-[#540C0F]'>اختر الفئة و المجلد</h2>
-            <h3 className='textsm text-gray-400 mt-2 mb-4'>* حدد المجلد الفرعي (إن وُجد)</h3>
+            <h2 className='text-2xl font-bold text-[#540C0F]'>اختر المتطلب المراد تسليمه</h2>
           </div>
 
-          <div>
+          <div className='max-lg:mt-5'>
           <Select  styles={customStyles} options={optionCollege} isSearchable={false} placeholder=" اختر الكلية "  />
-          <Select className='mt-6'  styles={customStyles} options={optionCollege} isSearchable={false} placeholder=" اختر الكلية "  />
-
-          </div>
-
-          <div>
-          <Select className='max-xl:mr-63 max-lg:mr-0  max-xl:mt-5' styles={customStyles} options={optionCollege} isSearchable={false} placeholder=" اختر الكلية "  />
-
           </div>
         </div>
 
@@ -141,7 +132,7 @@ export default function Manager_UploadFile() {
 
         {/* رفع الوثيقة */}
         <div className='mr-10 mt-10 grid justify-items-center translate-x-15 max-xl:translate-x-5 max-lg:mr-4 max-sm:translate-x-0 max-sm:mr-6'>
-         <button className='w-50 h-14 bg-[#540C0F] text-white text-2xl rounded-2xl py-2 px-4 cursor-pointer transition-opacity hover:opacity-80'>رفع الوثيقة</button>
+         <button className='w-50 h-14 bg-[#540C0F] text-white text-2xl rounded-2xl py-2 px-4 cursor-pointer transition-opacity hover:opacity-80'>تسليم الوثيقة</button>
         </div>
         
 

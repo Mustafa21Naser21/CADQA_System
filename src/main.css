@@ -31,12 +31,7 @@ body{
     background: rgb(172,119,119);
     background: linear-gradient(90deg, rgba(172,119,119,1) 0%, rgba(139,23,28,1) 70%);  
 }
-.sidebar-content h2:hover{
-    transform: translateY(-5px);
-}
-.sidebar-content-manager h2:hover{
-    transform: translateY(-5px);
-}
+
 .title h1::before{
     content:'';
     position:absolute;

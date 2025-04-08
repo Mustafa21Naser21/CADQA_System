@@ -11,7 +11,7 @@ const customStyles = {
     backgroundColor: "white",
     color: "#8B171C",
     width:'200px',  // حجم select
-    hegiht:'50px',
+    height:'50px',
     padding:'5px',
     border:'2px solid #8B171C',
     borderRadius:'5px',

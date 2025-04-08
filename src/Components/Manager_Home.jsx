@@ -113,7 +113,7 @@ export default function Manager_Home() {
       <div className={`manager-home ${open ? 'mr-90 max-lg:mr-76' : 'mr-20 max-lg:mr-16'}  duration-200 flex-1 justify-items-center`}>
 
      {/* خانة البحث */}
-    <div class="search-bar mt-6  relative">
+    <div className="search-bar mt-6  relative">
 
       <i className="fa-solid fa-magnifying-glass absolute top-5 ps-3 pointer-events-none"/>
       <i className="fa-solid fa-bars absolute top-5 left-6 cursor-pointer"/>
@@ -154,8 +154,7 @@ export default function Manager_Home() {
         </div>
       ))}
       </div>
-    
-      
+  
       </div>
       </div>
       </div>

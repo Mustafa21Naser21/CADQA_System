@@ -79,8 +79,12 @@ export default function Sidebar_Employee({ open, setOpen }) {
         </div>
       </div>
 
-             {/*  تحميل الملف */}
-        <div className={`upload-file z-100 shadow-2xl  ${uploadFile ? "block" : "hidden"} `}>
+      {/*  تحميل الملف */}
+      <div className={`upload-file fixed inset-0 z-50 ${uploadFile ? "flex" : "hidden"} items-center justify-center`}>
+
+        {/* Overlay الخلفية الشفافة */}
+      <div className="absolute inset-0 bg-black/70"></div>
+
         <div className={`bg-gray-100 w-120 h-90 fixed top-1/4 rounded-2xl duration-300 ${open ? 'right-140 max-xl:right-110 max-lg:right-80': 'right-110 max-xl:right-65 max-lg:right-50'}  max-xl:top-35 max-lg:top-50  max-md:right-20 max-lg:w-110 max-md:w-80`}>
           <div className='grid grid-col-1 justify-items-center'>
             {/* سحب و اسقاط الملف هنا */}
@@ -90,30 +94,29 @@ export default function Sidebar_Employee({ open, setOpen }) {
            </div>
 
            {/*زر تحميل الملف */}
-          <button className='w-45 h-14 bg-[#540C0F] mt-10 text-white font-bold rounded-xl text-xl cursor-pointer transition-opacity hover:opacity-80'>تحميل الملف</button>
-
+           <Link to={'/Manager_UploadFile'}> <button className='w-45 h-14 bg-[#540C0F] mt-10 text-white font-bold rounded-xl text-xl cursor-pointer transition-opacity hover:opacity-80'>تحميل الملف</button></Link>
          {/*on off التصنيف الذكي */}
          <div className='flex mt-4'>
         <button
-        onClick={() => setIsOn(!isOn)}
-        className={`relative w-12 h-6 flex items-center rounded-full p-1 transition-all mt-4 cursor-pointer 
+       onClick={() => setIsOn(!isOn)}
+       className={`relative w-12 h-6 flex items-center rounded-full p-1 transition-all mt-4 cursor-pointer 
         ${isOn ? "bg-[#8B171C]" : "bg-gray-400"}`} style={{direction:'ltr'}}  
         >
 
         <div
-          className={`w-6 h-6 bg-white rounded-full shadow-md transform transition-all 
+        className={`w-6 h-6 bg-white rounded-full shadow-md transform transition-all 
           ${isOn ? "translate-x-7" : "translate-x-0"}`}
           style={{transform:'translateX(-5px)'}}  
           >
-        <img src="/src/assets/star.png" className='mt-1 ml-1 w-4' />
+        <img src="/src/assets/star.svg" className='mt-1 ml-1 w-4' />
         </div>
 
       <span className="absolute left-2 text-xs text-white"></span>
       <span className="absolute right-2 text-xs text-white"></span>
-      </button>
-      <h3 className='text-gray-400 mt-4 mr-2'>التصنيف الذكي</h3>
+    </button>
+    <h3 className='text-gray-400 mt-4 mr-2'>التصنيف الذكي</h3>
 
-      </div>
+    </div>
 
         {/* زر الاغلاق */}
         <div className='absolute top-2 left-2 cursor-pointer'

@@ -9,7 +9,7 @@ const customStyles = {
     backgroundColor: "white",
     color: "#8B171C",
     width:'200px',
-    hegiht:'50px',
+    height:'50px',
     padding:'5px',
     border:'2px solid #8B171C',
     borderRadius:'5px',
@@ -156,33 +156,24 @@ export default function Sidebar_Manager({ open, setOpen }) {
     </div>
 
         {/*اضافة فئة جديد */}
-        <div className={`add-category  z-100 shadow-2xl  ${addCategory ? "block" : "hidden"}`} >
-        <div className={`bg-gray-100 w-125 h-90 fixed top-1/4 rounded-2xl duration-300 ${open ? 'right-140 max-xl:right-110 max-lg:right-65': 'right-110 max-xl:right-70 max-lg:right-40'} max-xl:top-35 max-md:w-80 max-md:right-20`}>
+        <div className={`add-category fixed inset-0 z-50 ${addCategory ? "flex" : "hidden"} items-center justify-center`} >
 
+          {/* Overlay الخلفية الشفافة */}
+        <div className="absolute inset-0 bg-black/70"></div>
+        
+        <div className={`bg-gray-100 w-125 h-90 fixed top-1/4 rounded-2xl duration-300 ${open ? 'right-140 max-xl:right-110 max-lg:right-65': 'right-110 max-xl:right-70 max-lg:right-40'} max-xl:top-35 max-md:w-80 max-md:right-20`}>
+        
           <h1 className='text-3xl mt-4 text-[#540C0F] text-center font-bold'>إضافة فئة جديدة</h1>
 
-          <h2 className='text-lg text-center text-[#540C0F] mt-8 mb-4'>عنوان الفئة</h2>
+          <h2 className='text-lg text-center text-[#540C0F] mt-15 mb-4'>عنوان الفئة</h2>
           {/* ادخال عنوان الفئة input*/}
          <div className='grid justify-items-center'>
          <input type="text" className='w-72 h-14 bg-white text-black p-2 outline-none border border-gray-400 rounded-lg ' />
          </div>
 
-         <h2 className='text-base text-center text-[#540C0F] mt-8'>تعيين الفئة ككلية</h2>
-
-          {/*check box نعم او لا */}
-         <div className='flex justify-center mt-2 gap-x-8'>
-          <div>
-          <input type="checkbox" name="نعم" id="" />
-          <label className='mr-2 text-[#540C0F]' htmlFor="">نعم</label>
-          </div>
-          <div>
-          <input type="checkbox" name="نعم" id="" />
-          <label className='mr-2 text-[#540C0F]' htmlFor="">لا</label>
-          </div>
-         </div>
 
          {/*اضافة الفئة button */}
-         <div className='grid justify-items-center mt-4'>
+         <div className='grid justify-items-center mt-20'>
           <button className='w-50 h-14 bg-[#540C0F] text-white font-bold rounded-3xl text-xl cursor-pointer transition-opacity hover:opacity-80 '>إضافة الفئة</button>
          </div>
 
@@ -196,7 +187,11 @@ export default function Sidebar_Manager({ open, setOpen }) {
       </div>
        
        {/* اضافة مجلد جديد */}
-      <div className={`add-category  z-100 shadow-2xl  ${addFolder ? "block" : "hidden"}`}>
+      <div className={`add-folder fixed inset-0 z-50 ${addFolder ? "flex" : "hidden"} items-center justify-center`}>
+
+        {/* Overlay الخلفية الشفافة */}
+      <div className="absolute inset-0 bg-black/70"></div>
+
       <div className={`bg-gray-100 w-150 h-95 fixed top-1/4 rounded-2xl duration-300 ${open ? 'right-130 max-xl:right-95 max-lg:right-60' : 'right-100 max-xl:right-60  max-lg:right-40'} max-xl:top-40  max-lg:w-130 max-md:right-17 max-md:w-85 max-md:h-145 max-md:top-30` }>
         <h1 className='text-3xl mt-4 text-[#540C0F] text-center font-bold'>إضافة مجلد جديد</h1>
         <div className='flex justify-between max-md:block max-md:pr-6'>
@@ -205,19 +200,6 @@ export default function Sidebar_Manager({ open, setOpen }) {
 
              {/* ادخال عنوان المجلد input */}
             <input type="text" className='w-60 h-14 bg-white text-black p-2 outline-none border border-gray-400 rounded-lg' />
-
-            <h2 className='text-base text-[#540C0F] mb-4 mr-2 mt-6'>تعيين المجلد كقسم</h2>
-            {/*check box نعم او لا */}
-          <div className='flex  mt-2 gap-x-8 mr-4'>
-          <div>
-          <input type="checkbox" name="نعم" id="" />
-          <label className='mr-2 text-[#540C0F]' htmlFor="">نعم</label>
-          </div>
-          <div>
-          <input type="checkbox" name="نعم" id="" />
-          <label className='mr-2 text-[#540C0F]' htmlFor="">لا</label>
-          </div>
-         </div>
 
           </div>
           {/* اختيار الفئة الرئيسية و المجلد الفرعي select */}
@@ -247,7 +229,11 @@ export default function Sidebar_Manager({ open, setOpen }) {
       </div>
 
       {/*  تحميل الملف */}
-      <div className={`upload-file z-100 shadow-2xl  ${uploadFile ? "block" : "hidden"} `}>
+      <div className={`upload-file fixed inset-0 z-50 ${uploadFile ? "flex" : "hidden"} items-center justify-center`}>
+
+        {/* Overlay الخلفية الشفافة */}
+      <div className="absolute inset-0 bg-black/70"></div>
+
         <div className={`bg-gray-100 w-120 h-90 fixed top-1/4 rounded-2xl duration-300 ${open ? 'right-140 max-xl:right-110 max-lg:right-80': 'right-110 max-xl:right-65 max-lg:right-50'}  max-xl:top-35 max-lg:top-50  max-md:right-20 max-lg:w-110 max-md:w-80`}>
           <div className='grid grid-col-1 justify-items-center'>
             {/* سحب و اسقاط الملف هنا */}
@@ -257,8 +243,7 @@ export default function Sidebar_Manager({ open, setOpen }) {
            </div>
 
            {/*زر تحميل الملف */}
-          <button className='w-45 h-14 bg-[#540C0F] mt-10 text-white font-bold rounded-xl text-xl cursor-pointer transition-opacity hover:opacity-80'>تحميل الملف</button>
-
+           <Link to={'/Manager_UploadFile'}> <button className='w-45 h-14 bg-[#540C0F] mt-10 text-white font-bold rounded-xl text-xl cursor-pointer transition-opacity hover:opacity-80'>تحميل الملف</button></Link>
          {/*on off التصنيف الذكي */}
          <div className='flex mt-4'>
         <button
@@ -272,7 +257,7 @@ export default function Sidebar_Manager({ open, setOpen }) {
           ${isOn ? "translate-x-7" : "translate-x-0"}`}
           style={{transform:'translateX(-5px)'}}  
           >
-        <img src="/src/assets/star.png" className='mt-1 ml-1 w-4' />
+        <img src="/src/assets/star.svg" className='mt-1 ml-1 w-4' />
         </div>
 
       <span className="absolute left-2 text-xs text-white"></span>
