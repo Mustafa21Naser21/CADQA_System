@@ -21,6 +21,7 @@ export default function Employee_Home() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  
   useEffect(() => {
     chartData.forEach((data, index) => {
       let ctx = chartsRef.current[index].getContext("2d");
@@ -39,7 +40,7 @@ export default function Employee_Home() {
           datasets: [
             {
               data: [0, 100],
-              backgroundColor: [data.color, "#ddd"],
+              backgroundColor: [data.color, "#F9DADC"],
               borderWidth: 0, 
             },
           ],
@@ -113,7 +114,7 @@ export default function Employee_Home() {
               {/*  التسليمات */}
               <div  className="deliverables flex justify-evenly gap-y-10 flex-wrap text-[#8B171C] text-center mt-16 text-xl duration-300">
                 {chartData.map((item, index) => (
-                  <div key={index}  className="w-70 h-74 bg-[#CCCCCC] text-[#540C0F] grid grid-cols-1 justify-items-center border rounded-2xl max-sm:w-64 max-sm:h-66">
+                  <div key={index}  className="w-70 h-74 bg-gray-100  grid grid-cols-1 justify-items-center border rounded-2xl max-sm:w-64 max-sm:h-66">
                     <h1 className="mt-4">{item.title}</h1>
                     <canvas ref={(el) => (chartsRef.current[index] = el)} className="w-28 h-28 mt-2">
                       

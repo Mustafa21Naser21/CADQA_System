@@ -46,7 +46,7 @@ export default function Academic_Staff_Home() {
 
            {/*  الشهادات */}
         <h1  className=' text-center text-[#540C0F] mt-20 mb-20 relative text-4xl font-bold max-sm:mb-16 '>الشهادات</h1> 
-        <div className='certificates  grid grid-cols-3  max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:gap-y-16  justify-items-center '> 
+        <div className='certificates  grid grid-cols-3  max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:gap-y-20  justify-items-center '> 
           
           <div  className="relative bg-[#611013] w-38 h-38  text-white rounded-2xl flex items-center justify-center rotate-45 shadow-lg cursor-pointer hover:scale-105 duration-300">
             <span className="-rotate-45">شهادة بكالوريوس</span>

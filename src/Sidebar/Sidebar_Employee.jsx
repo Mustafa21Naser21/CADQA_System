@@ -41,7 +41,7 @@ export default function Sidebar_Employee({ open, setOpen }) {
         </div>    
 
         {/* محتوى الشريط الجانبي */}
-        <div className={`duration-300 mx-10 ${open ? "sidebar-content-manager" : "sidebar-icon-manager"}`}>
+        <div className={` mx-8 max-lg:mx-2  ${open ? "sidebar-content" : "sidebar-icon"}`}>
           {[
             { icon: "fa-house", title: "الرئيسية", border: true },
             { icon: "fa-file-circle-plus", title: "رفع ملف جديد",action: () => { setUploadFile(true); } },
@@ -51,23 +51,23 @@ export default function Sidebar_Employee({ open, setOpen }) {
             { icon: "fa-gear", title: "الإعدادات" },
           ].map((item, index) => (
             <div
-              key={index}
-              className={`mt-4 flex items-center pb-2 ${
-                item.border ? "border-b border-white" : ""
-              }`}           
+            key={index}
+            className={`mt-2 flex items-center   transition-all ease-in-out box-border  ${
+              item.border && open ? "border-b border-white " : "mt-0"
+            } ${open ? "hover:bg-white hover:text-[#540C0F]  hover:cursor-pointer hover:rounded-xl px-2 py-4" : " p-0 mt-6 hover:text-[#540C0F]"}`}
             >
               <Link to={item.src || "#"} onClick={item.action}>
               <i
                 title={item.title}
-                className={`fa-solid ${item.icon} text-2xl ml-4 duration-300 cursor-pointer ${
-                  open ? "" : "translate-x-4 py-4 max-sm:translate-x-6"
+                className={`fa-solid ${item.icon} text-2xl ml-4 transition-all ease-in-out cursor-pointer ${
+                  open ? "" : "translate-x-2 py-4 max-lg:translate-x-3 max-sm:translate-x-6 sidebar-icon-close"
                 }`}
               />
               </Link>
 
               <Link to={item.src || "#"} onClick={item.action}>
               <h2
-                className={`text-xl text-white cursor-pointer duration-300 ${
+                className={`text-xl  cursor-pointer transition-all ease-in-out ${
                   !open && "hidden"
                 }`}
               >

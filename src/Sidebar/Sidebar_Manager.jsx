@@ -1,6 +1,9 @@
 import React,{useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Select from "react-select";
+import SimpleBar from 'simplebar-react';
+import 'simplebar-react/dist/simplebar.min.css';
+
     
 
 const customStyles = {
@@ -67,6 +70,20 @@ export default function Sidebar_Manager({ open, setOpen }) {
     }
   }, [showActivites]);
 
+  const menuItems = [
+    { icon: "fa-house", title: "الرئيسية", src: "/Manager_Home", border: true },
+    { icon: "fa-file-circle-plus", title: "رفع ملف جديد", action: () => { setUploadFile(true); setAddCategory(false); setAddFolder(false); }},
+    { icon: "fa-file-lines", title: "التسليمات", src: "" },
+    { icon: "fa-clock-rotate-left", title: "سجل النشاطات", action: () => { setShowActivites(!showActivites); }, border: true },
+    { icon: "fa-folder-open", title: "إدارة الملفات" },
+    { icon: "fa-file-pen", title: "إنشاء فئة جديدة", action: () => { setAddCategory(true); setAddFolder(false); setUploadFile(false); }},
+    { icon: "fa-folder-plus", title: "إضافة مجلد جديد", action: () => { setAddFolder(true); setAddCategory(false); setUploadFile(false); }, border: true },
+    { icon: "fa-chart-simple", title: "تقارير وإحصائيات", src: "/Manager_Statistics" },
+    { icon: "fa-bullhorn", title: "الإعلانات والتنبيهات", src: "", border: true },
+    { icon: "fa-file-circle-xmark", title: "المحذوفة مؤخرًا", src: "" },
+    { icon: "fa-gear", title: "الإعدادات" },
+  ];
+
   return (
     <>
     <div
@@ -101,58 +118,44 @@ export default function Sidebar_Manager({ open, setOpen }) {
       </div>
 
       {/* محتوى الشريط الجانبي */}
-      <div className={`duration-300 mx-10 ${open ? "sidebar-content-manager" : "sidebar-icon-manager"}`}>
-        {[
-          { icon: "fa-house", title: "الرئيسية", src:'/Manager_Home', border: true },
-          { icon: "fa-file-circle-plus", title: "رفع ملف جديد",action: () => { setUploadFile(true); setAddCategory(false); setAddFolder(false); } },
-          { icon: "fa-file-lines", title: "التسليمات",src:'' },
-          { icon: "fa-clock-rotate-left", title: "سجل النشاطات", action: () => { setShowActivites(!showActivites)}, border: true },
-          { icon: "fa-folder-open", title: "إدارة الملفات", },
-          { icon: "fa-file-pen", title: "إنشاء فئة جديدة",action: () => { setAddCategory(true); setAddFolder(false); setUploadFile(false); }},
-          { icon: "fa-folder-plus", title: "إضافة مجلد جديد", action: () => { setAddFolder(true); setAddCategory(false); setUploadFile(false); }, border: true },
-          { icon: "fa-chart-simple", title: "تقارير وإحصائيات",src:'/Manager_Statistics', },
-          { icon: "fa-bullhorn", title: "الإعلانات والتنبيهات",src:'', border: true },
-          { icon: "fa-file-circle-xmark", title: "المحذوفة مؤخرًا",src:'', },
-          { icon: "fa-gear", title: "الإعدادات" },
-        ].map((item, index) => (
+      <SimpleBar
+        style={{ height: 'calc(100% - 170px)', padding: open ? '0 10px' : '0' }}
+        className={`flex flex-col flex-1 duration-300  ${open ? "sidebar-content-manager py-3" : " py-0 sidebar-icon-manager justify-between items-center"}`}
+      >
+        {menuItems.map((item, index) => (
           <div
             key={index}
-            className={`mt-1 flex items-center pb-1 duration-300 ${
-              item.border ? "border-b border-white" : ""
-            }`}
-            
+            className={`flex items-center transition-all ease-in-out box-border mr-4 ${
+              item.border && open ? "border-b border-white" : ""
+            } ${open ? "hover:bg-white hover:text-[#540C0F] hover:rounded-2xl p-2   " : "p-0 justify-center my-2"}`}
           >
-           <Link to={item.src || "#"} onClick={item.action}> 
-           <i
-              title={item.title}
-              className={`fa-solid ${item.icon} text-2xl ml-4 cursor-pointer duration-300 ${
-                open ? "" : "translate-x-4 py-2 max-sm:translate-x-6"
-                
-              }`}
-             
-            />
-            </Link>
-
-           <Link to={item.src || "#"} onClick={item.action}> 
-           <h2
-              className={`text-xl text-white cursor-pointer duration-300 ${
-                !open && "hidden"
-              }`} 
-               
+            <Link
+              to={item.src || "#"}
+              onClick={item.action}
+              className="flex items-start w-full"
             >
-              {item.title}
-               
-              {item.title === "سجل النشاطات" && showActivites && (
-             <div className="">
-             <h3 className="text-gray-400 text-sm mb-2 mt-2 cursor-pointer hover:text-gray-200">سجل الزمني</h3>
-             <h3 className="text-gray-400 text-sm cursor-pointer hover:text-gray-200">سجل الموظفين</h3>
-             </div>
+              
+              <i
+                title={item.title}
+                className={`fa-solid ${item.icon} text-2xl ml-4 hover:text-[#540C0F] mt-4 ${!open ? "mx-auto" : ""} ${open ? "" : "translate-x-4"}`}
+              />
+            
+              {open && (
+                <div className="flex flex-col my-3">
+                  <h2 className="text-xl">{item.title}</h2>
+                  {item.title === "سجل النشاطات" && showActivites && (
+                    <div className="mt-2">
+                      <h3 className="text-gray-400 text-sm mb-2 hover:text-[#540C0F] cursor-pointer">سجل الزمني</h3>
+                      <h3 className="text-gray-400 text-sm hover:text-[#540C0F] cursor-pointer">سجل الموظفين</h3>
+                    </div>
+                  )}
+                </div>
               )}
-            </h2>
             </Link>
           </div>
         ))}
-      </div>
+        
+      </SimpleBar>
     </div>
 
         {/*اضافة فئة جديد */}

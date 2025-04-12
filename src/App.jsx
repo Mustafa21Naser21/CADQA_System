@@ -2,13 +2,15 @@ import React from 'react';
 import './main.css';
 import { Route,Routes,BrowserRouter} from 'react-router-dom';
 import Login from './Components/Login';
-import Academic_Staff_Home from './Components/Academic_Staff_Home';
-import Employee_Home from './Components/Employee_Home';
 import Manager_Home from './Components/Manager_Home';
 import Manager_Statistics from './Components/Manager_Statistics';
 import Manager_UploadFile from './Components/Manager_UploadFile';
+import Academic_Staff_Home from './Components/Academic_Staff_Home';
 import Academic_Staff_UploadFile from './Components/Academic_Staff_UploadFile';
 import Academic_Staff_Submission_Detalis from './Components/Academic_Staff_Submission_Detalis';
+import Academic_Staff_Statistics from './Components/Academic_Staff_Statistics';
+import Academic_Staff_Previous_Submissions from './Components/Academic_Staff_Previous_Submissions';
+import Employee_Home from './Components/Employee_Home';
 
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
       <Route path='Academic_Staff_Home'  element={<Academic_Staff_Home />}/>
       <Route path='Academic_Staff_UploadFile' element={<Academic_Staff_UploadFile />}/>
       <Route path='Academic_Staff_Submission_Detalis' element={<Academic_Staff_Submission_Detalis />}/>
+      <Route path='Academic_Staff_Statistics' element={<Academic_Staff_Statistics />}/>
+      <Route path='Academic_Staff_Previous_Submissions' element={<Academic_Staff_Previous_Submissions />} />
 
       <Route path='Employee_Home'  element={<Employee_Home />}/>
   

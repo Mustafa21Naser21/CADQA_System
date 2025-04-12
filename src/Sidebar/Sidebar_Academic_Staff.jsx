@@ -22,14 +22,14 @@ export default function Sidebar_Academic_Staff({open,setOpen}) {
     onClick={() => setOpen(!open)}
   >
     <i
-      className={`fa-solid fa-arrow-right text-xl font-bold mt-2 mr-2 duration-300 ${
+      className={`fa-solid fa-arrow-right text-xl font-bold mt-2 mr-2 duration-300 text-[#540C0F] ${
         !open && "rotate-180"
       }`}
     />
   </div>
 
   {/* الملف الشخصي */}
-  <div className={`profile flex mt-6 mb-8 duration-300 ${!open && "scale-0"}`}>
+  <div className={`profile flex mt-6 mb-8 duration-300  ${!open && "scale-0"}`}>
     <div
       style={{ fontSize: "80px" }}
       className="personal-photo w-36 h-32 rounded-full bg-white text-black mr-4"
@@ -42,33 +42,33 @@ export default function Sidebar_Academic_Staff({open,setOpen}) {
   </div>
 
   {/* محتوى الشريط الجانبي */}
-  <div className={`duration-300 mx-10 ${open ? "sidebar-content" : "sidebar-icon"}`}>
+  <div className={`duration-300  mx-8 max-lg:mx-2  ${open ? "sidebar-content" : "sidebar-icon"}`}>
     {[
       { icon: "fa-house", title: "الرئيسية",border:true,src:'/Academic_Staff_Home' },
       { icon: "fa-file-circle-plus", title: "رفع ملف جديد",action: () => { setUploadFile(true); } },
-      { icon: "fa-file-lines", title: "تسليماتي السابقة",border:true },
-      { icon: "fa-chart-simple", title: "تقارير و احصائيات" },
-      { icon: "fa-bullhorn", title: "الإعلانات و التنبيهات",border:true,hasBell: true },
+      { icon: "fa-file-lines", title: "تسليماتي السابقة",src:'/Academic_Staff_Previous_Submissions', border:true },
+      { icon: "fa-chart-simple", title: "الاحصائيات",src:'/Academic_Staff_Statistics' },
+      { icon: "fa-bullhorn", title: "المتطلبات و التنبيهات",border:true,hasBell: true },
       { icon: "fa-solid fa-arrow-right-from-bracket", title: "تسجيل الخروج", src:'/' },
     ].map((item, index) => (
       <div
         key={index}
-        className={`mt-2 flex items-center  duration-300 transition-all ease-in-out box-border  ${
-          item.border ? "border-b border-white " : "mt-0"
-        } ${open ? "hover:bg-white hover:text-[#540C0F]  hover:cursor-pointer hover:rounded-xl p-3" : " p-0 mt-6 hover:text-[#540C0F]"}`}
+        className={`mt-2 flex items-center   transition-all ease-in-out box-border  ${
+          item.border && open ? "border-b border-white " : "mt-0"
+        } ${open ? "hover:bg-white hover:text-[#540C0F]  hover:cursor-pointer hover:rounded-xl px-2 py-4" : " p-0 mt-6 hover:text-[#540C0F]"}`}
       >
         <Link to={item.src || "#"} onClick={item.action}>
         <i
           title={item.title}
-          className={`fa-solid ${item.icon} text-2xl ml-4 cursor-pointer duration-300 ${
-            open ? "" : "translate-x-4 py-4 max-sm:translate-x-6"
+          className={`fa-solid ${item.icon} text-2xl ml-4 cursor-pointer  transition-all ease-in-out ${
+            open ? "" : "translate-x-2 py-4 max-lg:translate-x-3 max-sm:translate-x-6 sidebar-icon-close"
           }`}
         />
         </Link>
 
         <Link to={item.src || "#"} onClick={item.action}>
         <h2
-          className={`text-xl  cursor-pointer duration-300 ${
+          className={`text-xl  cursor-pointer  transition-all ease-in-out ${
             !open && "hidden"
           }`}
         >
@@ -77,7 +77,7 @@ export default function Sidebar_Academic_Staff({open,setOpen}) {
           <i className="fa-solid fa-bell text-xl mr-4" />
           )}
         </h2>
-        </Link>
+        </Link> 
       </div>
     ))}
   </div>
