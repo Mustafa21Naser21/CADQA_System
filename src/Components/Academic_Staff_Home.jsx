@@ -31,16 +31,7 @@ export default function Academic_Staff_Home() {
          {/*  الصفحة الرئيسية */}
         <div className={`academic-staff-home ${open ? 'mr-90 max-lg:mr-76' : 'mr-20 max-lg:mr-16'}  duration-200 flex-1 justify-items-center`}>
 
-         {/* خانة البحث */}
-        <div className="search-bar mt-6  relative">
-
-        <i className="fa-solid fa-magnifying-glass absolute top-5 ps-3 pointer-events-none"/>
-        <i className="fa-solid fa-bars absolute top-5 left-6 cursor-pointer"/>
-        <input type="text" className=" w-90 h-14 p-2 ps-10 text-sm bg-indigo-100 outline-0 rounded-4xl max-lg:w-70 " placeholder="ابحث"  />  
-
-        </div>
   
-      
          {/*  محتوى الصفحة الرئيسية  */}
         <div className="academic-staff-home-content mb-10 title w-full grid grid-cols-1  ">
 

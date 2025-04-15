@@ -12,7 +12,7 @@ export default function Sidebar_Academic_Staff({open,setOpen}) {
 
 <div
   style={{ height: "100vh" }}
-  className={`fixed flex-1 duration-300 text-white rounded-l-4xl sidebar ${
+  className={`fixed flex-1 duration-300 text-white rounded-l-4xl sidebar z-100 ${
     open ? "w-90 max-lg:w-72 max-sm:w-72 max-sm:z-10" : "w-20 max-sm:w-16"
   }`}
 >

@@ -46,6 +46,7 @@ export default function Manager_Home() {
                 data: [0, 100],
                 backgroundColor: [data.color, "#F9DADC"],
                 borderWidth: 0, 
+                
               },
             ],
           },

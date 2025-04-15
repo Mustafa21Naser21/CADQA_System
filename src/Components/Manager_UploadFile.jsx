@@ -111,13 +111,13 @@ export default function Manager_UploadFile() {
         {/* عنوان الوثيقة */}
         <div className='mr-10 mt-10 max-lg:mr-2 max-sm:mr-0'>
           <h2 className='text-2xl font-bold text-[#540C0F]'>عنوان الوثيقة</h2>
-          <input className='w-75 h-14 text-[#540C0F] bg-gray-200 rounded-lg p-2 mt-4 outline-none border border-gray-400 max-lg:w-60' type="text" />
+          <input className='w-75 h-14 text-[#540C0F] bg-gray-100 rounded-lg p-2 mt-4 outline-none border border-gray-300 max-lg:w-60' type="text" />
         </div>
 
           {/* وصف الوثيقة */}
         <div className='mr-10 mt-10 max-lg:mr-2 max-sm:mr-0'>
           <h2 className='text-2xl font-bold text-[#540C0F]'>وصف الوثيقة</h2>
-          <textarea className='w-150 h-30 text-[#540C0F] bg-gray-200 rounded-lg p-2 mt-4 outline-none border border-gray-400 max-xl:w-120 max-lg:w-100 max-sm:w-70 max-sm:h-40' type="text" />
+          <textarea className='w-150 h-30 text-[#540C0F] bg-gray-100 rounded-lg p-2 mt-4 outline-none border border-gray-300 max-xl:w-120 max-lg:w-100 max-sm:w-70 max-sm:h-40' type="text" />
         </div>
          
          {/* الملفات الملرفقة */}
