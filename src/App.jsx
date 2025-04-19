@@ -10,6 +10,7 @@ import Academic_Staff_UploadFile from './Components/Academic_Staff_UploadFile';
 import Academic_Staff_Submission_Detalis from './Components/Academic_Staff_Submission_Detalis';
 import Academic_Staff_Statistics from './Components/Academic_Staff_Statistics';
 import Academic_Staff_Previous_Submissions from './Components/Academic_Staff_Previous_Submissions';
+import Academic_Staff_Notification from './Components/Academic_Staff_Notification';
 import Employee_Home from './Components/Employee_Home';
 
 
@@ -32,6 +33,8 @@ function App() {
       <Route path='Academic_Staff_Submission_Detalis' element={<Academic_Staff_Submission_Detalis />}/>
       <Route path='Academic_Staff_Statistics' element={<Academic_Staff_Statistics />}/>
       <Route path='Academic_Staff_Previous_Submissions' element={<Academic_Staff_Previous_Submissions />} />
+      <Route path='Academic_Staff_Notification' element={<Academic_Staff_Notification />}/>
+      
 
       <Route path='Employee_Home'  element={<Employee_Home />}/>
   

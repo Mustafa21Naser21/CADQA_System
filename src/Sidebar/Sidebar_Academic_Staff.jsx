@@ -1,11 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
 
 export default function Sidebar_Academic_Staff({open,setOpen}) {
 
   const [uploadFile,setUploadFile]=useState(false);
   const [isOn, setIsOn] = useState(false);
+  const location = useLocation();
+  const notificationCount = 5;
+  const isNotificationsPage = location.pathname === '/Academic_Staff_Notification';
+  const showNotification = notificationCount > 0 && !isNotificationsPage;
+
+
 
   return (
     <>
@@ -44,11 +52,11 @@ export default function Sidebar_Academic_Staff({open,setOpen}) {
   {/* محتوى الشريط الجانبي */}
   <div className={`duration-300  mx-8 max-lg:mx-2  ${open ? "sidebar-content" : "sidebar-icon"}`}>
     {[
-      { icon: "fa-house", title: "الرئيسية",border:true,src:'/Academic_Staff_Home' },
+      { icon: "fa-house", title: "الرئيسية",src:'/Academic_Staff_Home',border:true },
       { icon: "fa-file-circle-plus", title: "رفع ملف جديد",action: () => { setUploadFile(true); } },
       { icon: "fa-file-lines", title: "تسليماتي السابقة",src:'/Academic_Staff_Previous_Submissions', border:true },
       { icon: "fa-chart-simple", title: "الاحصائيات",src:'/Academic_Staff_Statistics' },
-      { icon: "fa-bullhorn", title: "المتطلبات و التنبيهات",border:true,hasBell: true },
+      { icon: "fa-bullhorn", title: " التنبيهات",src:'/Academic_Staff_Notification', border:true,hasBell: true },
       { icon: "fa-solid fa-arrow-right-from-bracket", title: "تسجيل الخروج", src:'/' },
     ].map((item, index) => (
       <div
@@ -68,14 +76,18 @@ export default function Sidebar_Academic_Staff({open,setOpen}) {
 
         <Link to={item.src || "#"} onClick={item.action}>
         <h2
-          className={`text-xl  cursor-pointer  transition-all ease-in-out ${
+          className={`text-xl flex  cursor-pointer  transition-all ease-in-out ${
             !open && "hidden"
           }`}
         >
           {item.title}
-          {item.hasBell && (
-          <i className="fa-solid fa-bell text-xl mr-4" />
+          {item.hasBell && showNotification && (
+           <div className='flex mr-8'>
+           <h3 className='text-sm text-red-600 number-notification'>{notificationCount}</h3>
+           <i className="fa-solid fa-bell text-xl animate-bounce" />
+          </div>
           )}
+
         </h2>
         </Link> 
       </div>

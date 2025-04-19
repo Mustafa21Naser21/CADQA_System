@@ -94,7 +94,7 @@ input[type="checkbox"] {
     height:60px;
     background-color:var(--secondary-color);
     top:10px;
-    right:36%;
+    right:33%;
 }
 .border-left::before{
     content:'';
@@ -103,10 +103,11 @@ input[type="checkbox"] {
     height: 60px;
     background-color:var(--secondary-color);
     top:10px;
-    right:69%;
+    right:67%;
 }
-
-
+.number-notification{
+    transform: translateY(-10px);
+}
 
 @media  (max-width:1024px) {
     
@@ -135,6 +136,7 @@ input[type="checkbox"] {
         width:25%;
         right:3%;
     }
+
 }
 
 @media  (max-width:820px) {

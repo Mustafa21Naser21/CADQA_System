@@ -81,7 +81,7 @@ export default function Academic_Staff_UploadFile() {
       <Sidebar_Academic_Staff open={open} setOpen={setOpen}/> 
        
        {/* صفحة رفع ملف جديد*/}
-      <div className={` ${open ? 'mr-90 max-lg:mr-76 ' : 'mr-20 max-lg:mr-25 '}  duration-200 flex-1 justify-items-center mb-10`}>
+      <div className={`academic-staff-upload-file ${open ? 'mr-90 max-lg:mr-76 ' : 'mr-20 max-lg:mr-25 '}  duration-200 flex-1 justify-items-center mb-10`}>
        
        {/*  محتوى صفحة رفع ملف جديد*/}
       <div className={` ${!open ? 'max-lg:mr-20 max-xl:mr-0' : 'mr-0'} w-full grid grid-cols-1 max-sm:justify-items-start`} >

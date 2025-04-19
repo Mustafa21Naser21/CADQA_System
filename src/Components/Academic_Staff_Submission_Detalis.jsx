@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState,useEffect } from 'react';
-import Select from "react-select";
+import { useLocation } from 'react-router-dom';
 import Sidebar_Academic_Staff from '../Sidebar/Sidebar_Academic_Staff';
 
 
@@ -46,6 +46,9 @@ export default function Academic_Staff_Submission_Detalis() {
 
     const [open, setOpen] = useState(window.innerWidth > 640);
     const [fileNames, setFileNames] = useState([]);
+    const location = useLocation();
+    const { title, date, status } = location.state || {};
+
 
       useEffect(() => {
         const handleResize = () => {
@@ -79,34 +82,27 @@ export default function Academic_Staff_Submission_Detalis() {
       <Sidebar_Academic_Staff open={open} setOpen={setOpen}/> 
        
        {/* صفحة رفع ملف جديد*/}
-      <div className={` ${open ? 'mr-90 max-lg:mr-76 ' : 'mr-20 max-lg:mr-25 '}  duration-200 flex-1 justify-items-center mb-10`}>
+      <div className={`academic-staff-submission-detalis ${open ? 'mr-90 max-lg:mr-76 ' : 'mr-20 max-lg:mr-25 '}  duration-200 flex-1 justify-items-center mb-10`}>
        
        {/*  محتوى صفحة رفع ملف جديد*/}
       <div className={` ${!open ? 'max-lg:mr-20 max-xl:mr-0' : 'mr-0'} w-full grid grid-cols-1 max-sm:justify-items-start`} >
 
         <h1 className='text-4xl text-[#540C0F] font-bold text-center mt-6'>رفع ملف جديد</h1>
         
-        {/* اختيار المتطلب المراد تسليمه */}
-        <div className='flex gap-x-10 mt-20 mb-5 max-xl:gap-x-5 max-xl:flex-wrap max-lg:flex-col'>
-          <div className='mr-10 max-lg:mr-2 max-sm:mr-0'>
-            <h2 className='text-2xl font-bold text-[#540C0F]'>اختر المتطلب المراد تسليمه</h2>
-          </div>
 
-          <div className='max-lg:mt-5'>
-          <Select  styles={customStyles} options={optionCollege} isSearchable={false} isDisabled={true} placeholder=" اختر الكلية "  />
-          </div>
-        </div>
 
         {/* عنوان الوثيقة */}
         <div className='mr-10 mt-10 max-lg:mr-2 max-sm:mr-0'>
           <h2 className='text-2xl font-bold text-[#540C0F]'>عنوان الوثيقة</h2>
-          <input readOnly className='w-75 h-14 text-[#540C0F] bg-gray-100 rounded-lg p-2 mt-4 outline-none border border-gray-300 max-lg:w-60' type="text" />
+          <input readOnly className='w-75 h-14 text-[#540C0F] bg-gray-100 rounded-lg p-2 mt-4 outline-none border border-gray-300 max-lg:w-60' type="text"
+          value={title || ''} />
         </div>
 
           {/* وصف الوثيقة */}
         <div className='mr-10 mt-10 max-lg:mr-2 max-sm:mr-0'>
           <h2 className='text-2xl font-bold text-[#540C0F]'>وصف الوثيقة</h2>
-          <textarea readOnly className='w-150 h-30 text-[#540C0F] bg-gray-100 rounded-lg p-2 mt-4 outline-none border border-gray-300 max-xl:w-120 max-lg:w-100 max-sm:w-70 max-sm:h-40' type="text" />
+          <textarea readOnly className='w-150 h-30 text-[#540C0F] bg-gray-100 rounded-lg p-2 mt-4 outline-none border border-gray-300 max-xl:w-120 max-lg:w-100 max-sm:w-70 max-sm:h-40' type="text"
+           />
         </div>
          
          {/* الملفات الملرفقة */}
@@ -146,9 +142,10 @@ export default function Academic_Staff_Submission_Detalis() {
   <div className='w-full max-w-md mt-12 '>
     <h2 className='text-2xl font-bold text-[#540C0F] mb-5'>حالة التسليم</h2>
     <div className='space-y-3'>
-      <h2 className='bg-green-500 text-white text-xl w-28 rounded-3xl text-center py-2'>مقبول</h2>
-      <h2 className='bg-red-500 text-white text-xl w-28 rounded-3xl text-center py-2 hidden'>مرفوض</h2>
-      <h2 className='bg-orange-400 text-white text-xl w-28 rounded-3xl text-center py-2 hidden'>معلق</h2>
+    {status === 'مقبول' && <h2 className='bg-green-500 text-white text-xl w-28 rounded-3xl text-center py-2'>مقبول</h2>}
+    {status === 'مرفوض' && <h2 className='bg-red-500 text-white text-xl w-28 rounded-3xl text-center py-2'>مرفوض</h2>}
+    {status === 'معلق' && <h2 className='bg-orange-400 text-white text-xl w-28 rounded-3xl text-center py-2'>معلق</h2>}
+
     </div>
   </div>
 
@@ -156,8 +153,8 @@ export default function Academic_Staff_Submission_Detalis() {
 
 
         {/* زر تسليم الوثيقة */}
-        <div className='hidden mr-10 mt-10  justify-items-center translate-x-15 max-xl:translate-x-5 max-lg:mr-4 max-sm:translate-x-0 max-sm:mr-6'>
-         <button className='w-50 h-14 bg-[#540C0F] text-white text-2xl rounded-2xl py-2 px-4 cursor-pointer transition-opacity hover:opacity-80'>تسليم الوثيقة</button>
+        <div className=' mr-10 mt-10 grid  justify-items-center translate-x-15 max-xl:translate-x-5 max-lg:mr-4 max-sm:translate-x-0 max-sm:mr-6'>
+          {status === 'مرفوض' && <button className='w-60 h-14 bg-[#540C0F] text-white text-2xl rounded-2xl py-2 px-2 cursor-pointer transition-opacity hover:opacity-80'> أعد القيام بالتسليم</button>}
         </div>
         
 
