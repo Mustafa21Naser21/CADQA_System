@@ -1,13 +1,28 @@
 import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate} from 'react-router-dom';
 
 
 export default function Sidebar_Academic_Staff({open,setOpen}) {
 
   const [uploadFile,setUploadFile]=useState(false);
   const [isOn, setIsOn] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const navigate = useNavigate();
+ 
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
+      // معالجة رفع الملف
+    const handleUpload = () => {
+      navigate('/Academic_Staff_UploadFile', { state: { file: selectedFile } });
+      setUploadFile(false);   
+    };
+
   const location = useLocation();
   const notificationCount = 5;
   const isNotificationsPage = location.pathname === '/Academic_Staff_Notification';
@@ -97,21 +112,34 @@ export default function Sidebar_Academic_Staff({open,setOpen}) {
 </div>
 
         {/*  تحميل الملف */}
-        <div className={`upload-file fixed inset-0 z-50 ${uploadFile ? "flex" : "hidden"} items-center justify-center`}>
-
-        {/* Overlay الخلفية الشفافة */}
-      <div className="absolute inset-0 bg-black/70"></div>
-
+      <div className={`upload-file fixed inset-0 z-50 ${uploadFile ? "flex" : "hidden"} items-center justify-center`}>
+        <div className="absolute inset-0 bg-black/70"></div>
         <div className={`bg-gray-100 w-120 h-90 fixed top-1/4 rounded-2xl duration-300 ${open ? 'right-140 max-xl:right-110 max-lg:right-80': 'right-110 max-xl:right-65 max-lg:right-50'}  max-xl:top-35 max-lg:top-50  max-md:right-20 max-lg:w-110 max-md:w-80`}>
           <div className='grid grid-col-1 justify-items-center'>
-            {/* سحب و اسقاط الملف هنا */}
-           <div className='grid justify-items-center'>
-           <img src="/src/assets/icon-upload.png" className='w-25 h-25 mt-10'/>
-           <h2 className='text-gray-400 text-lg mt-4'>قم برفع الوثيقة أو اسحبها وأسقطها هنا</h2>
-           </div>
+            {/* منطقة سحب وإسقاط الملف */}
+            <label 
+              htmlFor="file-upload"
+              className='grid justify-items-center cursor-pointer'
+            >
+              <img src="/src/assets/icon-upload.png" className='w-25 h-25 mt-10'/>
+              <h2 className='text-gray-400 text-lg mt-4'>
+                {selectedFile ? selectedFile.name : 'قم برفع الوثيقة أو اسحبها وأسقطها هنا'}
+              </h2>
+              <input
+                id="file-upload"
+                type="file"
+                className='hidden'
+                onChange={handleFileChange}
+              />
+            </label>
 
-           {/*زر تحميل الملف */}
-           <Link to={'/Academic_Staff_UploadFile'}> <button className='w-45 h-14 bg-[#540C0F] mt-10 text-white font-bold rounded-xl text-xl cursor-pointer transition-opacity hover:opacity-80'>تحميل الملف</button></Link>
+            {/* زر تحميل الملف */}
+            <button 
+              onClick={handleUpload}
+              className='w-45 h-14 bg-[#540C0F] mt-10 text-white font-bold rounded-xl text-xl cursor-pointer transition-opacity hover:opacity-80'
+            >
+              تحميل الملف
+            </button>
          {/*on off التصنيف الذكي */}
          <div className='flex mt-4'>
         <button

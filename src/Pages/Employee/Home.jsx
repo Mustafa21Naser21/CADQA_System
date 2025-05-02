@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import Sidebar_Employee from "../Sidebar/Sidebar_Employee";
+import Sidebar_Employee from '../../Components/Sidebar/Employee';
 
-export default function Employee_Home() {
+export default function Home() {
   const [open, setOpen] = useState(window.innerWidth > 640);
   const chartsRef = useRef([]);
   const chartInstances = useRef([]); // تخزين الكائنات لإنهائها عند إعادة الإنشاء

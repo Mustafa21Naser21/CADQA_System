@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState,useEffect,useRef } from 'react'
 import Chart from "chart.js/auto";
-import Sidebar_Manager from '../Sidebar/Sidebar_Manager';
+import Sidebar_Manager from '../../Components/Sidebar/Manager';
 
-export default function Manager_Home() {
+export default function Home() {
 
     const [open, setOpen] = useState(window.innerWidth > 640); // مغلق  على الشاشات الصغيرة
           
@@ -16,7 +16,7 @@ export default function Manager_Home() {
       { title: "المتطلبات التي تم تسليمها", percentage: 95, color: "#8B171C" },
       { title: "التسليمات المرفوضة", percentage: 30, color: "#8B171C" },
     ];
-
+  
     useEffect(() => {
       const handleResize = () => {
         setOpen(window.innerWidth > 640);

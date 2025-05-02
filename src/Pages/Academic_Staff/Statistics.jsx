@@ -1,8 +1,7 @@
 import React from 'react'
 import { useState,useEffect,useRef } from 'react'
 import Chart from "chart.js/auto";
-import Sidebar_Academic_Staff from '../Sidebar/Sidebar_Academic_Staff';
-
+import Sidebar_Academic_Staff from "../../Components/Sidebar/Academic_Staff";
 
 export default function Academic_Staff_Statistics() {
 

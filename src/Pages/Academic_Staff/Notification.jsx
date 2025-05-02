@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar_Academic_Staff from '../Sidebar/Sidebar_Academic_Staff';
+import Sidebar_Academic_Staff from "../../Components/Sidebar/Academic_Staff";
 
-export default function Academic_Staff_Notification() {
+export default function Notification() {
   const [open, setOpen] = useState(window.innerWidth > 640);
   const [notifications, setNotifications] = useState([]);
 

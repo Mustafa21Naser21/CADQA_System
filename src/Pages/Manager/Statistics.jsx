@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState,useEffect } from 'react';
-import Sidebar_Manager from '../Sidebar/Sidebar_Manager'
+import Sidebar_Manager from '../../Components/Sidebar/Manager';
 import { Bar } from "react-chartjs-2";
 import Select from "react-select";
     
@@ -63,7 +63,7 @@ const optionDepartment = [
 ];
 
 
-export default function Manager_Statistics() {
+export default function Statistics() {
 
     const [open, setOpen] = useState(window.innerWidth > 1024);
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
-import Sidebar_Academic_Staff from '../Sidebar/Sidebar_Academic_Staff';
+import Sidebar_Academic_Staff from "../../Components/Sidebar/Academic_Staff";
 
-export default function Academic_Staff_Home() {
+export default function Home() {
  
       const [open, setOpen] = useState(window.innerWidth > 640); // مغلق  على الشاشات الصغيرة
         
@@ -95,3 +95,7 @@ export default function Academic_Staff_Home() {
     </>
   )
 }
+
+
+
+
