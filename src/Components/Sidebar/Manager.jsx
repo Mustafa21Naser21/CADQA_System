@@ -3,29 +3,37 @@ import {Link,useNavigate} from 'react-router-dom';
 import Select from "react-select";
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
-
-    
+import Swal from 'sweetalert2';
+import { optionCollege, optionDepartment, optionMainCategory, optionSubFolder } from "../../data/selectOptions";
 
 const customStyles = {
-  control: (styles) => ({
+  control: (styles, state) => ({
     ...styles,
     backgroundColor: "white",
     color: "#8B171C",
-    width:'200px',
-    height:'50px',
-    padding:'5px',
-    border:'2px solid #8B171C',
-    borderRadius:'5px',
+    width: '250px',
+    height: 'auto',
+    minHeight: '50px',
+    padding: '5px',
+    border: '2px solid #8B171C',
+    borderRadius: '5px',
     boxShadow: "none",
-    "&:hover": { borderColor: "#8B171C" },
+    overflowX: 'auto',
+    whiteSpace: 'nowrap',
+    flexWrap: 'nowrap',
+    outline: 'none', 
+    "&:hover": {
+      borderColor: "#8B171C", 
+    },
+    borderColor: state.isFocused ? "#8B171C" : "#8B171C", 
   }),
   menu: (base) => ({
     ...base,
-    width: "200px", // اجعل القائمة بنفس حجم select
+    width: "250px",
   }),
   singleValue: (base) => ({
     ...base,
-    color: "#8B171C", // لون النص عند اختيار الخيار
+    color: "#8B171C",
   }),
   option: (styles, { isFocused }) => ({
     ...styles,
@@ -33,32 +41,49 @@ const customStyles = {
     color: isFocused ? "white" : "#8B171C",
     cursor: "pointer",
   }),
+  multiValue: (styles) => ({
+    ...styles,
+    backgroundColor: "#FBEAEA",
+    borderRadius: "12px",
+    padding: "2px 6px",
+    display: "flex",
+    alignItems: "center",
+    marginRight: "5px",
+  }),
+  multiValueLabel: (styles) => ({
+    ...styles,
+    color: "#8B171C",
+    fontWeight: "bold",
+  }),
+  multiValueRemove: (styles) => ({
+    ...styles,
+    color: "#8B171C",
+    cursor: "pointer",
+    ':hover': {
+      backgroundColor: "#8B171C",
+      color: "white",
+    },
+  }),
 };
 
-{/* بيانات اختيار الفئة الرئيسية */}
-const optionMainCategory = [
-  { value: "", label: "كلية تكنولوجيا المعلومات" },
-  { value: "", label: "كلية الرياضة" },
-  { value: "", label: "كلية الهندسة" },
-
-];
-
-{/* بيانات اختيار المجلد الفرعي */}
-const optionSubFolder = [
-  { value: "", label: "كلية تكنولوجيا المعلومات" },
-  { value: "", label: "كلية الرياضة" },
-  { value: "", label: "كلية الهندسة" },
-
-];
 
 export default function Sidebar_Manager({ open, setOpen }) {
 
   const [addCategory,setAddCategory]=useState(false);
   const [addFolder,setAddFolder]=useState(false);
   const [uploadFile,setUploadFile]=useState(false);
+  const [postAlert ,setPostAlert]=useState(false);
   const [isOn, setIsOn] = useState(false);
   const [showActivites,setShowActivites] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [fileNames, setFileNames] = useState([]);
+  const [selectedMainCategory, setSelectedMainCategory] = useState(null);
+  const [selectedSubFolder, setSelectedSubFolder] = useState(null);
+  const [selectedCollege, setSelectedCollege] = useState(null);
+  const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const [alertText, setAlertText] = useState('');
+
+    
   const navigate = useNavigate();
  
   // اغلاق سجل النشاطات بعد 5 ثواني من الضغط
@@ -73,38 +98,75 @@ export default function Sidebar_Manager({ open, setOpen }) {
   }, [showActivites]);
 
     // معالجة اختيار الملف
-    const handleFileChange = (e) => {
-      if (e.target.files && e.target.files[0]) {
-        setSelectedFile(e.target.files[0]);
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+          setSelectedFile(file);
       }
-    };
+  };
   
     // معالجة رفع الملف
     const handleUpload = () => {
-        navigate('/Manager_UploadFile', { state: { file: selectedFile } });
-        setUploadFile(false);   
-    };
+      if (selectedFile) {
+          setFileNames([selectedFile.name]);
+          navigate('/Manager_UploadFile', { state: { file: selectedFile } });
+          setUploadFile(false);   
+      } else {
+          alert('يرجى اختيار ملف قبل التحميل!');
+      }
+  };
+  
+  // دالة نشر التنبيه
+  const handlePostAlert = () => {
+    // التحقق من الحقول المطلوبة
+    if (!alertText.trim() || !selectedDepartment || !selectedCollege) {
+      Swal.fire({
+        icon: 'error',
+        title: 'خطأ',
+        text: 'يرجى تعبئة جميع الحقول المطلوبة قبل النشر',
+        confirmButtonText: 'حسنًا',
+        confirmButtonColor: '#8B171C'
+
+      });
+      return;
+    }
+  
+    // إذا كانت كل الحقول ممتلئة
+    Swal.fire({
+      icon: 'success',
+      title: 'تم النشر',
+      text: 'تم نشر التنبيه بنجاح',
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    
+    // إعادة تعيين القيم بعد النشر 
+    setAlertText('');
+    setSelectedDepartment(null);
+    setSelectedCollege(null);
+    setPostAlert(false); 
+  };
 
   const menuItems = [
     { icon: "fa-house", title: "الرئيسية", src: "/Manager_Home", border: true },
-    { icon: "fa-file-circle-plus", title: "رفع ملف جديد", action: () => { setUploadFile(true); setAddCategory(false); setAddFolder(false); }},
+    { icon: "fa-file-circle-plus", title: "رفع ملف جديد", action: () => { setUploadFile(true); setAddCategory(false); setAddFolder(false); setPostAlert(false); }},
     { icon: "fa-file-lines", title: "التسليمات", src: "/Manager_Submissions" },
     { icon: "fa-clock-rotate-left", title: "سجل النشاطات", action: () => { setShowActivites(!showActivites); }, border: true },
     { icon: "fa-folder-open", title: "إدارة الملفات",src:'/Manager_Categorey_Management' },
-    { icon: "fa-file-pen", title: "إنشاء فئة جديدة", action: () => { setAddCategory(true); setAddFolder(false); setUploadFile(false); }},
-    { icon: "fa-folder-plus", title: "إضافة مجلد جديد", action: () => { setAddFolder(true); setAddCategory(false); setUploadFile(false); }, border: true },
+    { icon: "fa-file-pen", title: "إنشاء فئة جديدة", action: () => { setAddCategory(true); setAddFolder(false); setUploadFile(false); setPostAlert(false); }},
+    { icon: "fa-folder-plus", title: "إضافة مجلد جديد", action: () => { setAddFolder(true); setAddCategory(false); setUploadFile(false); setPostAlert(false); }, border: true },
     { icon: "fa-chart-simple", title: "تقارير وإحصائيات", src: "/Manager_Statistics" },
-    { icon: "fa-bullhorn", title: "الإعلانات والتنبيهات", src: "", border: true },
+    { icon: "fa-bullhorn", title: "نشر تنبيه/ متطلب", src: "",action: () => { setPostAlert(true); setAddFolder(false); setAddCategory(false); setUploadFile(false); }, border: true },
     { icon: "fa-file-circle-xmark", title: "المحذوفة مؤخرًا", src: "" },
-    { icon: "fa-solid fa-arrow-right-from-bracket", title: "تسجيل الخروج", src:'/' },
+    { icon: "fa-arrow-right-from-bracket", title: "تسجيل الخروج", src:'/' },
   ];
 
   return (
     <>
     <div
       style={{ height: "100vh" }}
-      className={`fixed flex-1 duration-300 text-white rounded-l-4xl sidebar ${
-        open ? "w-90 max-lg:w-72 max-sm:w-72 max-sm:z-10" : "w-20 max-sm:w-16"
+      className={`fixed flex-1 duration-300 text-white rounded-l-4xl sidebar z-50 ${
+        open ? "w-90 max-lg:w-72 max-sm:w-72" : "w-20 max-sm:w-16"
     }`}
     >
       {/* زر التحكم في الفتح والإغلاق */}
@@ -112,11 +174,12 @@ export default function Sidebar_Manager({ open, setOpen }) {
         className={`close-open-sidebar bg-white text-black w-8 h-8 rounded-full ${open ? 'left-2' : 'left-6 max-sm:left-4'} top-4 absolute cursor-pointer`}
         onClick={() => setOpen(!open)}
       >
-        <i
-          className={`fa-solid fa-arrow-right text-xl font-bold mt-2 mr-2 duration-300 ${
-            !open && "rotate-180"
-          }`}
-        />
+          <img
+          src='/src/assets/arrow-close-open.svg'
+            className={`fa-solid fa-arrow-right text-2xl font-bold mt-1 mx-2 duration-300 ${
+              !open && "rotate-180"
+            }`}
+          />
       </div>
 
       {/* الملف الشخصي */}
@@ -160,7 +223,7 @@ export default function Sidebar_Manager({ open, setOpen }) {
                   <h2 className="text-xl">{item.title}</h2>
                   {item.title === "سجل النشاطات" && showActivites && (
                     <div className="mt-2">
-                      <h3 className="text-gray-400 text-sm mb-2 hover:text-[#540C0F] cursor-pointer">سجل الزمني</h3>
+                     <Link to={'/Manager_Timeline_Record'}> <h3 className="text-gray-400 text-sm mb-2 hover:text-[#540C0F] cursor-pointer">سجل الزمني</h3> </Link>
                       <h3 className="text-gray-400 text-sm hover:text-[#540C0F] cursor-pointer">سجل الموظفين</h3>
                     </div>
                   )}
@@ -213,7 +276,7 @@ export default function Sidebar_Manager({ open, setOpen }) {
       <div className={`bg-gray-100 w-150 h-95 fixed top-1/4 rounded-2xl duration-300 ${open ? 'right-130 max-xl:right-95 max-lg:right-60' : 'right-100 max-xl:right-60  max-lg:right-40'} max-xl:top-40  max-lg:w-130 max-md:right-17 max-md:w-85 max-md:h-145 max-md:top-30` }>
         <h1 className='text-3xl mt-4 text-[#540C0F] text-center font-bold'>إضافة مجلد جديد</h1>
         <div className='flex justify-between max-md:block max-md:pr-6'>
-          <div className='pr-6 mt-6'>
+          <div className='px-2 mt-6'>
             <h2 className='text-lg text-[#540C0F] mb-2 mr-2'>عنوان المجلد</h2>
 
              {/* ادخال عنوان المجلد input */}
@@ -221,19 +284,24 @@ export default function Sidebar_Manager({ open, setOpen }) {
 
           </div>
           {/* اختيار الفئة الرئيسية و المجلد الفرعي select */}
-          <div className='pr-6 mt-8'>
+          <div className=' mt-8'>
 
             <h3 style={{fontSize:'12px'}} className=' text-gray-700 mb-2 '>*يرجى اختيار الفئة التي سيتم ربط هذا المجلد بها.</h3>
-            <Select  styles={customStyles} options={optionMainCategory} isSearchable={false} placeholder="الفئة الرئيسية "  />
+            <Select  styles={customStyles} options={optionMainCategory} isSearchable={false}  placeholder="الفئة الرئيسية "
+              value={selectedMainCategory}
+              onChange={(selectedOption) => setSelectedMainCategory(selectedOption)}
+                />
 
             <h3 style={{fontSize:'12px'}} className=' text-gray-700 mb-2 mt-4 ml-4'>اختر المجلد الحاوي إذا كنت تريد تخزين المجلد داخله (إختياري)</h3>
-            <Select  styles={customStyles} options={optionSubFolder} isSearchable={false} placeholder="المجلد الفرعي"  />
+            <Select  styles={customStyles} options={optionSubFolder} isSearchable={false}  placeholder="المجلد الفرعي"
+              value={selectedSubFolder}
+              onChange={(selectedOption) => setSelectedSubFolder(selectedOption)}  />
 
           </div>
         </div>
 
         {/*اضافة المجلد button */}
-        <div className='grid justify-items-center mt-8'>
+        <div className='grid justify-items-center mt-8 max-md:mt-20'>
           <button className='w-50 h-14 bg-[#540C0F] text-white font-bold rounded-3xl text-xl cursor-pointer transition-opacity hover:opacity-80 '>إضافة المجلد</button>
          </div>
 
@@ -245,6 +313,7 @@ export default function Sidebar_Manager({ open, setOpen }) {
 
        </div>
       </div>
+
 
       {/*  تحميل الملف */}
       <div className={`upload-file fixed inset-0 z-50 ${uploadFile ? "flex" : "hidden"} items-center justify-center`}>
@@ -307,6 +376,57 @@ export default function Sidebar_Manager({ open, setOpen }) {
           </div>
         </div>
       </div>
+
+      
+    {/*اضافة  تنبيه او متطلب */}
+   <div className={`add-alert fixed inset-0 z-50 ${postAlert ? "flex" : "hidden"} items-center justify-center`}>
+
+  {/* Overlay الخلفية الشفافة */}
+  <div className="absolute inset-0 bg-black/70"></div>
+
+  <div className={`bg-gray-100 w-150 fixed top-10 rounded-2xl duration-300
+    ${open ? 'right-130 max-xl:right-95 max-lg:right-50' : 'right-100 max-xl:right-60 max-lg:right-30'}
+    max-xl:top-40 max-lg:w-140 max-md:right-17 max-md:w-85 max-md:top-30
+    p-4 overflow-y-auto max-h-[90vh]`}>
+
+    <h1 className='text-3xl mt-4 text-[#540C0F] text-center font-bold'>إضافة تنبيه/متطلب</h1>
+
+    <div className='flex justify-around max-md:block max-md:pr-6'>
+      <div className='mt-6 ml-2'>
+        <h2 className='text-lg text-[#540C0F] mb-2 mr-2'>نص التنبيه/المتطلب</h2>
+        <textarea type="text" className='w-70 h-20 bg-white text-black p-2 outline-none border border-gray-400 rounded-lg'
+          value={alertText}
+          onChange={(e) => setAlertText(e.target.value)}
+          />
+      </div>
+
+      <div className='mt-8'>
+        <h3 className='text-[12px] text-gray-700 mb-2'>*يرجى اختيار الكليات المستهدفة للتنبيه</h3>
+        <Select styles={customStyles} options={optionCollege} isSearchable={false} isMulti placeholder="اختر الكلية"
+          value={selectedCollege}
+          onChange={(selectedOption) => setSelectedCollege(selectedOption)} />
+
+        <h3 className='text-[12px] text-gray-700 mb-2 mt-4 ml-4'>يرجى اختيار الأقسام المستهدفة</h3>
+        <Select styles={customStyles} options={optionDepartment} isSearchable={false} isMulti placeholder="اختر القسم"
+          value={selectedDepartment}
+          onChange={(selectedOption) => setSelectedDepartment(selectedOption)} />
+      </div>
+    </div>
+
+    <div className='grid justify-items-center mt-10 max-md:mt-20'>
+      <button className='w-35 h-14 bg-[#540C0F] text-white font-bold rounded-3xl text-xl cursor-pointer transition-opacity hover:opacity-80 '
+       onClick={handlePostAlert}>نشر</button>
+    </div>
+
+    {/* زر الإغلاق */}
+    <div className='absolute top-2 left-2 cursor-pointer' onClick={() => setPostAlert(false)}>
+      <i className="fa-solid fa-xmark text-gray-400" />
+    </div>
+     
+    </div>
+   </div>
+
+      
 
   </>  
   );

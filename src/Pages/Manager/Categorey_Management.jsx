@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState,useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Sidebar_Manager from '../../Components/Sidebar/Manager';
 
 export default function Categorey_Management() {
@@ -18,13 +19,13 @@ export default function Categorey_Management() {
   return (
     <>
        <section>     
-        <div className="employee-page w-full flex justify-between">
+        <div className="manager-page w-full flex justify-between">
 
           {/*  الشريط الجانبي */}
           <Sidebar_Manager open={open} setOpen={setOpen} />
 
           {/*  الصفحة الرئيسية */}
-          <div className={`employee-category-management ${open ? "mr-90 max-lg:mr-76" : "mr-20 max-lg:mr-16"} duration-200 flex-1 justify-items-center`}>
+          <div className={`manager-category-management ${open ? "mr-90 max-lg:mr-76" : "mr-20 max-lg:mr-16"} duration-200 flex-1 justify-items-center relative`}>
 
             {/* خانة البحث */}
             <div className="search-bar mt-6 relative">
@@ -50,9 +51,11 @@ export default function Categorey_Management() {
                    "كلية الاعمال","كلية الاداب","كلية الشريعة",
                     "كلية العلوم","كلية الصيدلة","كلية الرياضة","كلية العلوم التربوية",
                     "كلية التمريض","كلية طب الاسنان","الحوكمة","التخطيط الاستراتيجي"].map((college, index) => (
+                  <Link to={'/Manager_Faculty_Files'}>   
                   <div key={index}  className="w-46 h-46 bg-[#611013] relative rounded-2xl cursor-pointer hover:scale-105 duration-300">
                     <h2 className="centerd">{college}</h2>
                   </div>
+                  </Link>
                 ))}
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar_Employee from '../../Components/Sidebar/Employee';
 import Select from "react-select";
 import Swal from 'sweetalert2';
+import Sidebar_Manager from '../../Components/Sidebar/Manager';
 
 
 // select style
@@ -68,7 +68,6 @@ const customStyles = {
 
 // بيانات اختيار الكلية 
 const optionCollege = [
-  { value: "all", label: "وارد عام (كل الكليات)" },
   { value: "it", label: "كلية تكنولوجيا المعلومات" },
   { value: "engineering", label: "كلية الهندسة" },
   { value: "medicine", label: "كلية الطب" },
@@ -91,33 +90,25 @@ const optionCategorey = [
 
 // بيانات اختيار عضو الهيئة التدريسية 
 const optionAcademicStaff = [
-  { value: "all", label: "جميع الاعضاء (إرسال عام)" },
   { value: "zakaria", label: "د . زكريا الطراونة" },
   { value: "ghaith", label: " د . غيث المحادين" },
   { value: "esraa", label: "د . اسراء الكفاوين " },
   { value: "hamza", label: " د . حمزة عيال سلمان" },
 ];
 
-// بيانات اختيار نوع الوثيقة
+// بيانات اختيار نوع الوثيقة 
 const optionTypeSubmission = [
   { value: "official", label: "الكتب الرسمية " },
   { value: "certificate", label: "تسليم شهادة" },
 ];
 
-export default function UploadFile() {
+export default function Edit_File() {
   const [open, setOpen] = useState(window.innerWidth > 640);
   const [fileNames, setFileNames] = useState([]);
   const [files, setFiles] = useState([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [fileBase64, setFileBase64] = useState('');
-  const [isUploading, setIsUploading] = useState(false);
-
-
-  // الحقول المتغيرة حسب الاختيار
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedAcademicStaff, setSelectedAcademicStaff] = useState([]);
-  const [selectedColleges, setSelectedColleges] = useState([]);
 
 
   useEffect(() => {
@@ -128,12 +119,33 @@ export default function UploadFile() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-// دالة اختيار الملف 
+// دالة تعديل الوثيقة
+function handleEdit(){
+  Swal.fire({
+    icon: 'warning',
+    title: ' تعديل الوثيقة',
+    text: ' هل انت متأكد من تعديل الوثيقة ؟',
+    confirmButtonColor: '#8B171C',
+    confirmButtonText:'تعديل',
+    showCloseButton: true,   
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        text: "تم تعديل الوثيقة بنجاح",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  })
+}
+
+  // دالة اختيار الملف 
   const handleIconClick = () => {
     document.querySelector("#fileInput").click();
   };
 
- // دالة تغيير الملف  
+ //دالة تغيير الملف 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
   
@@ -182,121 +194,38 @@ export default function UploadFile() {
     }
   };
 
-// دالة حذف الملف  
+  // دالة حذف الملف 
   const handleDeleteFile = () => {
     setFiles([]);
     setFileNames([]);
     document.querySelector("#fileInput").value = "";
   };
 
-  const handleSubmit = async () => {
-
-    if (
-      !selectedCategory ||
-      selectedAcademicStaff.length === 0 ||
-      selectedColleges.length === 0 ||
-      files.length === 0 ||
-      fileBase64 === '' ||
-      title.trim() === '' ||
-      description.trim() === ''
-    ) {
-      Swal.fire({
-        icon: 'error',
-        title: 'بيانات ناقصة',
-        text: 'يرجى تعبئة جميع الحقول وإرفاق ملف.',
-        confirmButtonColor: '#8B171C'
-      });
-      return;
-    }
-
-     // اختيار جميع الكليات
-     const selectedCollegeValues = selectedColleges.some(college => college.value === 'all')
-    ? optionCollege.filter(c => c.value !== 'all').map(c => c.value)
-    : selectedCollege.map(college => college.value);
-
-    // اختيار جميع الاعضاء الهيئة التدريسية
-    const selectedAcademicStaffValues = selectedAcademicStaff.some(staff => staff.value === 'all')
-  ? optionAcademicStaff.filter(s => s.value !== 'all').map(s => s.value)
-  : selectedAcademicStaff.map(staff => staff.value);
-
-  
-  const payload = {
-    colleges: selectedCollegeValues,
-    category: selectedCategory.value,
-    academicStaff: selectedAcademicStaffValues,
-    fileName: fileNames[0],
-    fileContent: fileBase64,
-    title: title,
-    description: description
-  };
-  
-  
-    try {
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-  
-      const result = await response.json();
-  
-      if (response.ok) {
-        Swal.fire({
-          title: 'تم الرفع',
-          text: 'تم رفع الوثيقة بنجاح.',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 2000,
-        });
-
-        // إعادة تعيين القيم
-        setFiles([]);
-        setFileNames([]);
-        setFileBase64('');
-        setTitle('');
-        setDescription('');
-
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'فشل الرفع',
-          text: result.message || 'حدث خطأ أثناء رفع الوثيقة.',
-          confirmButtonColor: '#8B171C'
-        });
-      }
-  
-    } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'خطأ في الاتصال',
-        text: 'تأكد من الاتصال بالإنترنت أو راجع الخادم.',
-        confirmButtonColor: '#8B171C'
-      });
-      console.error('Upload Error:', error);
-    }
-  };
   
 
   return (
+
     <section>
-      <div className="employee-page w-full flex justify-between">
-        {/* الشريط الجانبي */}
-        <Sidebar_Employee open={open} setOpen={setOpen}/>
+    <div className="employee-page w-full flex justify-between">
 
-          {/*  محتوى الصفحة */}
-        <div className={`employee_uploadFile ${open ? 'mr-90 max-lg:mr-76' : 'mr-20 max-lg:mr-25'} duration-200 flex-1 justify-items-center mb-10`}>
-          <div className={`${!open ? 'max-lg:mr-20 max-xl:mr-0' : 'mr-0'} w-full grid grid-cols-1 max-sm:justify-items-start`}>
-            <h1 className='text-4xl text-[#540C0F] font-bold text-center mt-6'>رفع ملف جديد</h1>
+      {/* الشريط الجانبي */}
+      <Sidebar_Manager open={open} setOpen={setOpen} />
 
-            <div className='flex gap-x-10 mt-20 max-xl:gap-x-5 max-xl:flex-wrap max-lg:flex-col'>
-              <div className='mr-10 max-lg:mr-2 max-sm:mr-0'>
-                <h2 className='text-2xl font-bold text-[#540C0F]'>اختر الفئة و المجلد</h2>
-                <h3 className='textsm text-gray-400 mt-2 mb-4'>* حدد المجلد الفرعي (إن وُجد)</h3>
-              </div>
+      {/* محتوى الصفحة */}
+      <div className={`employee_edit_file ${open ? 'mr-90 max-lg:mr-76' : 'mr-20 max-lg:mr-25'} duration-200 flex-1 mb-10`}>
+        <div className={`${!open ? 'max-lg:mr-20 max-xl:mr-0' : 'mr-0'} w-full grid grid-cols-1`}>
+          <h1 className='text-4xl text-[#540C0F] font-bold text-center mt-6'> تعديل معلومات الملف</h1>
 
-              <div>
+          {/* خيارات الوثيقة */}
+          <div className='flex gap-x-10 mt-20 max-xl:flex-wrap max-lg:flex-col'>
+
+            {/* عنوان القسم */}
+            <div className='mr-10 mt-10'>
+              <h2 className='text-2xl font-bold text-[#540C0F]'>موقع الوثيقة</h2>
+            </div>
+
+            {/* اختيارات الكلية وعضو الهيئة */}
+            <div>
 
                 {/*  اختيار الكلية */}
                 <Select
@@ -304,23 +233,21 @@ export default function UploadFile() {
                    options={optionCollege}
                    isSearchable={false}
                    placeholder="اختر الكلية"
-                   onChange={(options) => setSelectedColleges(options)}
+                  
                    isMulti
                  />
                                               
                 {/*  اختيار عضو الهيئة التدريسية */}
-                {selectedCategory?.value === "academic" && (
                   <Select
                     className='mt-6'
                     styles={customStyles}
                     options={optionAcademicStaff}
                     isSearchable={false}
                     placeholder="اختر عضو الهيئة التدريسية"
-                    onChange={(option) => setSelectedAcademicStaff(option)}
+                    
                     isMulti
                     
                   />
-                )}
               </div>
 
               <div>
@@ -332,15 +259,9 @@ export default function UploadFile() {
                   options={optionCategorey}
                   isSearchable={false}
                   placeholder="اختر الفئة"
-                  onChange={(option) => {
-                    setSelectedCategory(option);
-                    setSelectedAcademicStaff(null); // إعادة التعيين عند تغيير الفئة
-                  
-                  }}
                 />
                 
                 {/*  اختيار نوع الوثيقة */}
-                {selectedAcademicStaff?.length > 0 && (
                   <Select
                     className='mt-6 max-xl:mr-63 max-lg:mr-0 max-xl:mt-5'
                     styles={customStyles}
@@ -348,7 +269,7 @@ export default function UploadFile() {
                     isSearchable={false}
                     placeholder="اختر نوع الوثيقة"
                   />
-                  )}
+
 
               </div>
             </div>
@@ -408,18 +329,17 @@ export default function UploadFile() {
               />
             </div>
 
-            {/* زر رفع الوثيقة */}
-            <div className='mr-10 mt-10 grid justify-items-center translate-x-15 max-xl:translate-x-5 max-lg:mr-4 max-sm:translate-x-0 max-sm:mr-6'>
-              <button 
-              className='w-50 h-14 bg-[#540C0F] text-white text-2xl rounded-2xl py-2 px-4 cursor-pointer transition-opacity hover:opacity-80'
-              onClick={handleSubmit}
-              >رفع الوثيقة
-              </button>
-            </div>
-
+          {/* زر حفظ التعديلات */}
+          <div className='mr-10 mt-20 flex justify-center max-md:flex-col max-md:gap-y-10'>
+            <button className='w-50 h-14 bg-[#540C0F] text-white text-2xl rounded-2xl transition-opacity hover:opacity-80 cursor-pointer'
+            onClick={handleEdit}>
+               حفظ التعديلات
+            </button>
           </div>
+
         </div>
       </div>
-    </section>
+    </div>
+  </section> 
   );
 }

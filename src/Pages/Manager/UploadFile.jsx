@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Select from "react-select";
 import Swal from 'sweetalert2';
 import Sidebar_Manager from '../../Components/Sidebar/Manager';
@@ -64,7 +65,7 @@ const customStyles = {
   }),
 };
 
-// بيانات الاختيارات
+// بيانات اختيار الكلية
 const optionCollege = [
   { value: "it", label: "كلية تكنولوجيا المعلومات" },
   { value: "engineering", label: "كلية الهندسة" },
@@ -80,17 +81,18 @@ const optionCollege = [
   { value: "law", label: "كلية الحقوق" },
 ];
 
+//بيانات اختيار الفئة 
 const optionCategorey = [
   { value: "academic", label: "اعضاء الهيئة التدريسية" },
 ];
-
+//بيانات اختيار عضو الهيئة التدريسية
 const optionAcademicStaff = [
   { value: "zakaria", label: "د. زكريا الطراونة" },
   { value: "ghaith", label: "د. غيث المحادين" },
   { value: "esraa", label: "د. اسراء الكفاوين" },
   { value: "hamza", label: "د. حمزة عيال سلمان" },
 ];
-
+// بيانات اختيار نوع الوثيقة
 const optionTypeSubmission = [
   { value: "official", label: "الكتب الرسمية" },
   { value: "certificate", label: "تسليم شهادة" },
@@ -103,10 +105,10 @@ export default function UploadFile() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [fileBase64, setFileBase64] = useState('');
-  const [isUploading, setIsUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
   const [selectedType, setSelectedType] = useState(null);
-  
+  const location = useLocation();
+  const { file } = location.state || {};
+  //const [file, setFile] = useState([]);
  
 
   // الحقول المتغيرة حسب الاختيار
@@ -123,182 +125,147 @@ export default function UploadFile() {
   }, []);
 
 
+
+  useEffect(() => {
+    if (file) {
+      console.log(file);  // تحقق من أن الملف تم تمريره بشكل صحيح
+    }
+  }, [file]);
+
   // دالة اختيار الملف
   const handleIconClick = () => {
     document.querySelector("#fileInput").click();
   };
 
   // دالة تغيير الملف
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-  
-    if (selectedFile) {
-      const allowedTypes = [
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "application/pdf",
-        "application/vnd.ms-excel",
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        "image/jpeg",
-        "image/png"
-      ];
-  
-      const maxSizeInBytes = 20 * 1024 * 1024; // 20MB
-  
-      if (!allowedTypes.includes(selectedFile.type)) {
-        Swal.fire({
-          icon: 'error',
-          title: 'نوع الملف غير مدعوم',
-          text: 'الرجاء اختيار ملف من الأنواع التالية: doc, docx, pdf, xls, xlsx, jpg, jpeg, png',
-          confirmButtonColor: '#8B171C'
-        });
-        return;
-      }
-  
-      if (selectedFile.size > maxSizeInBytes) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'حجم الملف كبير',
-          text: 'الحد الأقصى المسموح به هو 20 ميجابايت.',
-          confirmButtonColor: '#8B171C'
-        });
-        return;
-      }
-  
-      // قراءة الملف وتحويله إلى base64
-      const reader = new FileReader();
-      reader.onloadstart = () => {
-        setIsUploading(true);
-        setUploadProgress(0);
-      };
-      reader.onprogress = (e) => {
-        if (e.lengthComputable) {
-          const progress = Math.round((e.loaded / e.total) * 100);
-          setUploadProgress(progress);
-        }
-      };
-      reader.onloadend = () => {
-        const base64String = reader.result.split(',')[1];
-        setFileBase64(base64String);
-        setIsUploading(false);
-        setUploadProgress(100);
-      };
-      reader.onerror = () => {
-        setIsUploading(false);
-        Swal.fire({
-          icon: 'error',
-          title: 'خطأ في القراءة',
-          text: 'حدث خطأ أثناء قراءة الملف',
-          confirmButtonColor: '#8B171C'
-        });
-      };
-      reader.readAsDataURL(selectedFile);
-  
-      setFileNames([selectedFile.name]);
-      setFiles([selectedFile]);
+const handleFileChange = (event) => {
+  const selectedFile = event.target.files[0];
+
+  if (selectedFile) {
+    const allowedTypes = [
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/pdf",
+      "application/vnd.ms-excel",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "image/jpeg",
+      "image/png"
+    ];
+
+    const maxSizeInBytes = 20 * 1024 * 1024; // 20MB
+
+    if (!allowedTypes.includes(selectedFile.type)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'نوع الملف غير مدعوم',
+        text: 'الرجاء اختيار ملف من الأنواع التالية: doc, docx, pdf, xls, xlsx, jpg, jpeg, png',
+        confirmButtonColor: '#8B171C'
+      });
+      return;
     }
-  };
+
+    if (selectedFile.size > maxSizeInBytes) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'حجم الملف كبير',
+        text: 'الحد الأقصى المسموح به هو 20 ميجابايت.',
+        confirmButtonColor: '#8B171C'
+      });
+      return;
+    }
+
+    // تخزين اسم الملف فقط
+    setFileNames([selectedFile.name]);
+    setFiles([selectedFile]);
+
+    // إذا أردت قراءة محتوى الملف (Base64) يمكنك فعل ذلك هنا ولكن في حالتك الحالية لن تحتاج لذلك
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result.split(',')[1];
+      setFileBase64(base64String);
+    };
+    reader.readAsDataURL(selectedFile);
+  }
+};
 
   // دالة حذف الملف
   const handleDeleteFile = () => {
     setFiles([]);
     setFileNames([]);
     setFileBase64('');
-    setUploadProgress(0);
     document.querySelector("#fileInput").value = "";
   };
 
   // دالة إرسال الملف
-  const handleSubmit = async () => {
-    if (
-      !selectedCategory ||
-      selectedAcademicStaff.length === 0 ||
-      selectedColleges.length === 0 ||
-      files.length === 0 ||
-      fileBase64 === '' ||
-      title.trim() === '' ||
-      description.trim() === '' ||
-      !selectedType
-    ) {
+const handleSubmit = async () => {
+  if (
+    !selectedCategory ||
+    selectedAcademicStaff.length === 0 ||
+    selectedColleges.length === 0 ||
+    files.length === 0 ||
+    title.trim() === '' ||
+    description.trim() === '' ||
+    !selectedType
+  ) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'بيانات ناقصة',
+      text: 'يرجى تعبئة جميع الحقول وإرفاق ملف.',
+      confirmButtonColor: '#8B171C'
+    });
+    return;
+  }
+
+  const payload = {
+    colleges: selectedColleges.map(college => college.value),
+    category: selectedCategory.value,
+    academicStaff: selectedAcademicStaff.map(staff => staff.value),
+    type: selectedType.value,
+    fileName: fileNames[0], // إرسال اسم الملف فقط
+    title: title,
+    description: description
+  };
+
+  try {
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
       Swal.fire({
-        icon: 'warning',
-        title: 'بيانات ناقصة',
-        text: 'يرجى تعبئة جميع الحقول وإرفاق ملف.',
-        confirmButtonColor: '#8B171C'
+        title: 'تم الرفع',
+        text: 'تم رفع الوثيقة بنجاح.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 2000,
       });
-      return;
-    }
-  
-    const payload = {
-      colleges: selectedColleges.map(college => college.value),
-      category: selectedCategory.value,
-      academicStaff: selectedAcademicStaff.map(staff => staff.value),
-      type: selectedType.value,
-      fileName: fileNames[0],
-      fileContent: fileBase64,
-      title: title,
-      description: description
-    };
-  
-    try {
-      setIsUploading(true);
-      setUploadProgress(0);
-      
-      // محاكاة عملية الرفع للسيرفر
-      const interval = setInterval(() => {
-        setUploadProgress(prev => {
-          if (prev >= 90) {
-            clearInterval(interval);
-            return 90;
-          }
-          return prev + 10;
-        });
-      }, 300);
 
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-  
-      clearInterval(interval);
-      setUploadProgress(100);
-      
-      const result = await response.json();
-  
-      if (response.ok) {
-        Swal.fire({
-          title: 'تم الرفع',
-          text: 'تم رفع الوثيقة بنجاح.',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 2000,
-        });
-
-        // إعادة تعيين القيم
-        resetForm();
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'فشل الرفع',
-          text: result.message || 'حدث خطأ أثناء رفع الوثيقة.',
-          confirmButtonColor: '#8B171C'
-        });
-      }
-    } catch (error) {
+      // إعادة تعيين القيم
+      resetForm();
+    } else {
       Swal.fire({
         icon: 'error',
-        title: 'خطأ في الاتصال',
-        text: 'تأكد من الاتصال بالإنترنت أو راجع الخادم.',
+        title: 'فشل الرفع',
+        text: result.message || 'حدث خطأ أثناء رفع الوثيقة.',
         confirmButtonColor: '#8B171C'
       });
-      console.error('Upload Error:', error);
-    } finally {
-      setIsUploading(false);
     }
-  };
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'خطأ في الاتصال',
+      text: 'تأكد من الاتصال بالإنترنت أو راجع الخادم.',
+      confirmButtonColor: '#8B171C'
+    });
+    console.error('Upload Error:', error);
+  }
+};
 
   // دالة إعادة تعيين النموذج
   const resetForm = () => {
@@ -311,7 +278,6 @@ export default function UploadFile() {
     setSelectedAcademicStaff([]);
     setSelectedColleges([]);
     setSelectedType(null);
-    setUploadProgress(0);
     document.querySelector("#fileInput").value = "";
   };
 
@@ -421,6 +387,7 @@ export default function UploadFile() {
                 {fileNames.length > 0 ? (
                   <div className="flex items-center gap-2 text-[#540C0F]">
                     <span>{fileNames[0]}</span>
+
                     <i 
                       className="fa-solid fa-trash text-[#540C0F] cursor-pointer mx-2 hover:text-[#8B171C]" 
                       onClick={handleDeleteFile}
@@ -432,16 +399,6 @@ export default function UploadFile() {
                 )}
               </div>
               
-              {/* شريط التقدم */}
-              {isUploading && (
-                <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                  <div 
-                    className="bg-[#540C0F] h-2.5 rounded-full" 
-                    style={{ width: `${uploadProgress}%` }}
-                  ></div>
-                </div>
-              )}
-
               <input 
                 className='hidden' 
                 type="file" 
@@ -449,18 +406,15 @@ export default function UploadFile() {
                 onChange={handleFileChange} 
                 accept=".doc,.docx,.pdf,.xls,.xlsx,.jpg,.jpeg,.png"
               />
+              
             </div>
 
             {/* زر رفع الوثيقة */}
             <div className='mr-10 mt-10 grid justify-items-center translate-x-15 max-xl:translate-x-5 max-lg:mr-4 max-sm:translate-x-0 max-sm:mr-6'>
               <button 
-                className={`w-50 h-14 bg-[#540C0F] text-white text-2xl rounded-2xl py-2 px-4 cursor-pointer transition-opacity hover:opacity-80 ${
-                  isUploading ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
-                onClick={handleSubmit}
-                disabled={isUploading}
-              >
-                {isUploading ? 'جاري الرفع...' : 'رفع الوثيقة'}
+                className={`w-50 h-14 bg-[#540C0F] text-white text-2xl rounded-2xl py-2 px-4 cursor-pointer transition-opacity hover:opacity-80`}
+                onClick={handleSubmit} >
+                رفع الوثيقة
               </button>
             </div>
 

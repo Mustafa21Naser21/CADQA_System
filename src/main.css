@@ -113,7 +113,7 @@ input[type="checkbox"] {
     height:60px;
     background-color:var(--secondary-color);
     top:0px;
-    right:31%;
+    right:32%;
 }
 .border-left-sub::before{
     content:'';
@@ -128,7 +128,74 @@ input[type="checkbox"] {
     transform: translateY(-10px);
 }
 .icon-submissions{
-    transform: translate(-40%,-5%);
+    transform: translate(-30%,-7%);
+}
+.border-center-timeline,.border-left-timeline,.border-right-timeline{
+    transition: 0.5s all ease-in-out;
+}
+.border-right-timeline::before{
+    content:'';
+    position:absolute;
+    width:1px;
+    height:50px;
+    background-color:var(--secondary-color);
+    top:5px;
+    right:18%;
+}
+.border-left-timeline::before{
+    content:'';
+    position:absolute;
+    width:1px;
+    height: 50px;
+    background-color:var(--secondary-color);
+    top:5px;
+    right:52%;
+}
+.border-center-timeline::after{
+    content:'';
+    position:absolute;
+    width:1px;
+    height:50px;
+    background-color:var(--secondary-color);
+    top:5px;
+    right:37%; 
+}
+.faculty_line::before{
+    content: '';
+    position: absolute;
+    width: 75%;
+    height: 1px;
+    background-color:var(--secondary-color);
+    top: 15px;
+    right: 20%;
+}
+.faculty_line_close::before{
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 1px;
+    background-color:var(--secondary-color);
+    top: 15px;
+    right: 15%; 
+}
+
+.faculty_doctors_line::before{
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 1px;
+    background-color:var(--secondary-color);
+    top: 15px;
+    right: 25%;
+}
+.faculty_doctors_line_close::before{
+    content: '';
+    position: absolute;
+    width: 75%;
+    height: 1px;
+    background-color:var(--secondary-color);
+    top: 15px;
+    right: 20%; 
 }
 
 @media  (max-width:1024px) {
@@ -157,6 +224,22 @@ input[type="checkbox"] {
     .title h1::after{
         width:25%;
         right:3%;
+    }
+    .faculty_line::before{
+        width: 65%;
+        right: 30%;
+    }
+    .faculty_line_close::before{
+        width: 75%;
+        right: 20%; 
+    }
+    .faculty_doctors_line::before{
+        width: 58%;
+        right: 40%;
+    }
+    .faculty_doctors_line_close::before{
+        width: 68%;
+        right: 27%; 
     }
 
 }
@@ -196,6 +279,43 @@ input[type="checkbox"] {
     .border-left-sub::before{
         right:62%;
     }
+    .border-right-timeline::before{
+
+        width:1px;
+        height:40px;
+        top:5px;
+        right:32%;
+    }
+    .border-left-timeline::before{
+
+        width:1px;
+        height: 40px;
+        top:5px;
+        right:65%;
+    }
+    .border-center-timeline::after{
+
+        width:600px;
+        height:1px;
+        top:50px;
+        right:0%; 
+    }
+    .faculty_line::before{
+        width: 57%;
+        right: 37%;
+    }
+    .faculty_line_close::before{
+        width: 70%;
+        right: 25%; 
+    }
+    .faculty_doctors_line::before{
+        width: 45%;
+        right: 50%;
+    }
+    .faculty_doctors_line_close::before{
+        width: 60%;
+        right: 35%; 
+    }
 }
 
 @media  (max-width:768px){
@@ -228,6 +348,22 @@ input[type="checkbox"] {
     }
     .sidebar-icon-close{
         transform: translateX(-30px) !important;
+    }
+    .faculty_line::before{
+        width: 55%;
+        right: 40%;
+    }
+    .faculty_line_close::before{
+        width: 70%;
+        right: 25%; 
+    }
+    .faculty_doctors_line::before{
+        width: 40%;
+        right: 55%;
+    }
+    .faculty_doctors_line_close::before{
+        width: 60%;
+        right: 35%; 
     }
 
 }
@@ -290,6 +426,47 @@ input[type="checkbox"] {
     }
     .icon-submissions{
         transform: translate(5%,40%);
+    }
+    .border-right-timeline::before{
+
+        width:250px;
+        height:1px;
+        top:50px;
+        right:5%;
+    }
+    .border-left-timeline::before{
+
+        width:250px;
+        height: 1px;
+        top:150px;
+        right:5%;
+    }
+    .border-center-timeline::after{
+
+        width:250px;
+        height:1px;
+        top:100px;
+        right:5%; 
+    }
+    .faculty_line::before{
+        width: 0;
+        right:0;
+        height: 0;
+    }
+    .faculty_line_close::before{
+        width: 0;
+        right: 0; 
+        height: 0;
+    }
+    .faculty_doctors_line::before{
+        width:0;
+        right: 0;
+        height: 0;
+    }
+    .faculty_doctors_line_close::before{
+        width:0;
+        right:0; 
+        height: 0;
     }
     
 

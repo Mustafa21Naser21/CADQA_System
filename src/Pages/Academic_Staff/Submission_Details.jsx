@@ -65,13 +65,13 @@ export default function Submission_Detalis() {
              {/* عرض الملفات */}
             <div className='mr-10 mt-10 max-lg:mr-2 max-sm:mr-0'>
               <h2 className='text-2xl font-bold text-[#540C0F]'>الملفات المرفقة</h2>
-              <i className="fa-solid fa-file text-[#540C0F] text-2xl mt-2" />
 
-              {normalizedFiles.map((file, index) => (
-                <div key={index} className="flex items-center gap-2 mb-2 text-[#540C0F]">
-                  <span>{file.name || file}</span>
+              {normalizedFiles.map((file, index) => (         
+                <div key={index} className="flex items-center text-[#540C0F] bg-red-200 rounded-2xl w-fit h-fit gap-4 mt-4 p-2">
+                  <i className="fa-solid fa-file text-[#540C0F] text-2xl " />
+                  <span className=''>{file.name || file}</span>
                   <i 
-                    className="fa-solid fa-eye cursor-pointer text-xl hover:text-[#8B171C]" 
+                    className="fa-solid fa-eye cursor-pointer text-xl  hover:text-[#8B171C]" 
                     onClick={() => handleViewFile(file)} 
                   />
                 </div>

@@ -6,7 +6,7 @@ import "swiper/css";
 import Swal from 'sweetalert2';
 
 export default function Login() {
-  // ============ متغيرات الحالة ============
+
   const [images] = useState([
     "/src/assets/cadqa login.svg",
     "/src/assets/loginPage1.svg",
@@ -14,10 +14,10 @@ export default function Login() {
     "/src/assets/loginPage 3.svg",
   ]);
 
-  const [username, setUsername] = useState(''); // لحفظ اسم المستخدم المدخل
-  const [password, setPassword] = useState(''); // لحفظ كلمة المرور المدخلة
-  const [showSpinner, setShowSpinner] = useState(false); // للتحكم في عرض مؤشر التحميل
-  const navigate = useNavigate(); // للتنقل بين الصفحات
+  const [username, setUsername] = useState(''); 
+  const [password, setPassword] = useState('');  
+  const [showSpinner, setShowSpinner] = useState(false); 
+  const navigate = useNavigate();  
 
   // ============ دالة معالجة تسجيل الدخول ============
   const handleLogin = async (e) => {
@@ -261,10 +261,10 @@ export default function Login() {
         {/* قسم حقوق النشر */}
         <div className="copy ltr bg-[#270405] h-24 text-white text-center flex flex-col justify-center p-4 max-sm:h-32">
           <h1 className="mt-2 text-xl opacity-80 english-text max-sm:px-4">
-            حقوق النشر © 2024 - تم التطوير بواسطة:
+            حقوق النشر © 2025 - تم التطوير بواسطة
           </h1>
           <h2 className="text-white text-xl font-bold mt-2 mb-2 english-text max-sm:px-8">
-            سيف حماد، مصطفى ناصر، إيمان معايطة، سيف الشبول
+            سيف حماد،  مصطفى ناصر،  إيمان معايطة،  سيف الشبول
           </h2>
         </div>
       </footer>

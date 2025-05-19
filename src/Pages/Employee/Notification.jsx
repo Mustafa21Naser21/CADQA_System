@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar_Academic_Staff from "../../Components/Sidebar/Academic_Staff";
+import Sidebar_Employee from '../../Components/Sidebar/Employee';
 
 export default function Notification() {
   const [open, setOpen] = useState(window.innerWidth > 640);
@@ -55,7 +55,7 @@ export default function Notification() {
   return (
     <section>
       <div className="academic-staff-page w-full flex justify-between">
-        <Sidebar_Academic_Staff open={open} setOpen={setOpen} />
+        <Sidebar_Employee open={open} setOpen={setOpen} />
 
         <div className={`academic-staff-notification ${open ? 'mr-90 max-lg:mr-76' : 'mr-20 max-lg:mr-16'} duration-200 flex-1`}>
           <div className="academic-staff-content mb-10 w-full grid grid-cols-1">

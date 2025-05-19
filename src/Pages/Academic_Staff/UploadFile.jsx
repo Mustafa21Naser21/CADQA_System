@@ -30,7 +30,7 @@ export default function UploadFile() {
     document.querySelector("#fileInput").click();
   };
 
-   {/* دالة تغيير الملف  */}
+   // دالة تغيير الملف 
    const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
   
@@ -72,14 +72,14 @@ export default function UploadFile() {
   };
   
 
-  {/* دالة حذف الوثيقة */}
+  // دالة حذف الوثيقة 
   const handleDeleteFile = () => {
     setFiles([]);
     setFileNames([]);  
     document.querySelector("#fileInput").value = "";
   };
 
-    {/* دالة تسليم الوثيقة */}
+    // دالة تسليم الوثيقة 
   const handleSubmit = (e) => {
     e.preventDefault();
   
@@ -114,7 +114,7 @@ export default function UploadFile() {
   
     Swal.fire({
       title: 'تم التسليم',
-      text: 'تم تسليم الوثيقة بنجاح.',
+      text: 'تم تسليم الوثيقة بنجاح',
       icon: 'success',
       showConfirmButton: false,
       timer: 2000,

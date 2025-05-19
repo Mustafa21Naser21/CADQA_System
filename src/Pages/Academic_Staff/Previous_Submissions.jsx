@@ -34,9 +34,9 @@ const option = [{ value: '', label: 'فلترة' }];
 
 // أسماء الأشهر بالعربية
 const monthsMap = {
-  '01': 'يناير', '02': 'فبراير', '03': 'مارس', '04': 'ابريل',
-  '05': 'مايو', '06': 'يونيو', '07': 'يوليو', '08': 'اغسطس',
-  '09': 'سبتمبر', '10': 'اكتوبر', '11': 'نوفمبر', '12': 'ديسمبر'
+  '01': 'يناير', '02': 'فبراير', '03': 'مارس', '04': 'أبريل',
+  '05': 'مايو', '06': 'يونيو', '07': 'يوليو', '08': 'أغسطس',
+  '09': 'سبتمبر', '10': 'أكتوبر', '11': 'نوفمبر', '12': 'ديسمبر'
 };
 
 export default function Previous_Submissions() {
@@ -46,10 +46,14 @@ export default function Previous_Submissions() {
   const [submissions, setSubmissions] = useState([]);
   const navigate = useNavigate();
 
-  // تحميل التسليمات من localStorage
+  // تحميل التسليمات من localStorage وإضافة timestamp
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('submissions')) || [];
-    setSubmissions(saved);
+    const processed = saved.map(sub => ({
+      ...sub,
+      timestamp: new Date(`${sub.date}T${sub.time || '00:00'}`).getTime()
+    }));
+    setSubmissions(processed);
   }, []);
 
   // التعامل مع تغيير حجم النافذة
@@ -63,20 +67,29 @@ export default function Previous_Submissions() {
   useEffect(() => {
     if (submissions.length === 0) return;
   
-    const sorted = [...submissions].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const sorted = [...submissions].sort((a, b) => b.timestamp - a.timestamp);
     const [latestYear, latestMonth] = sorted[0].date.split('-');
   
     setExpandedYears({ [latestYear]: true });
     setExpandedMonths({ [`${latestYear}-${latestMonth}`]: true });
   }, [submissions]);
   
-  // تنظيم البيانات حسب السنة والشهر
+  // تنظيم البيانات حسب السنة والشهر مع أحدث تسليم لكل شهر
   const groupedData = {};
-  submissions.forEach(({ date, ...rest }) => {
-    const [year, month] = date.split('-');
+  submissions.forEach((submission) => {
+    const [year, month] = submission.date.split('-');
     if (!groupedData[year]) groupedData[year] = {};
-    if (!groupedData[year][month]) groupedData[year][month] = [];
-    groupedData[year][month].push({ date, ...rest });
+    if (!groupedData[year][month]) {
+      groupedData[year][month] = [];
+    }
+    groupedData[year][month].push(submission);
+  });
+
+  // ترتيب التسليمات داخل كل شهر حسب الأحدث
+  Object.keys(groupedData).forEach(year => {
+    Object.keys(groupedData[year]).forEach(month => {
+      groupedData[year][month].sort((a, b) => b.timestamp - a.timestamp);
+    });
   });
 
   // تبديل توسيع/طي السنة
@@ -90,11 +103,53 @@ export default function Previous_Submissions() {
     setExpandedMonths((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
+  // تحسينات الحركة والانتقالات
+  const containerVariants = {
+    hidden: { opacity: 0, height: 0 },
+    visible: { 
+      opacity: 1, 
+      height: "auto",
+      transition: {
+        duration: 0.5,
+        ease: "easeInOut",
+        when: "beforeChildren",
+        staggerChildren: 0.1
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      height: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.4,
+        ease: "backOut"
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      y: -20,
+      transition: {
+        duration: 0.2
+      }
+    }
+  };
+
   return (
     <section>
       <div className="academic-staff-page w-full flex justify-between">
         {/* الشريط الجانبي */}
-        < Sidebar_Academic_Staff open={open} setOpen={setOpen}/>
+        <Sidebar_Academic_Staff open={open} setOpen={setOpen}/>
 
         {/* المحتوى الرئيسي */}
         <div className={`academic-staff-previous-submissions ${open ? 'mr-90 max-lg:mr-76' : 'mr-20 max-lg:mr-16'} duration-200 flex-1`}>
@@ -113,7 +168,7 @@ export default function Previous_Submissions() {
                   {/* عنوان السنة مع زر التوسيع */}
                   <div 
                     onClick={() => toggleYear(year)} 
-                    className='flex cursor-pointer items-center mt-6'
+                    className='flex cursor-pointer items-center mt-6 hover:bg-gray-100 p-2 rounded-lg transition-colors duration-200'
                   >
                     <h2 className='text-3xl font-bold text-[#540C0F] max-lg:mr-4'>{year}</h2>
                     <motion.i
@@ -124,38 +179,25 @@ export default function Previous_Submissions() {
                   </div>
                   
                   {/* رسوم متحركة لتوسيع/طي محتوى السنة */}
-                  <AnimatePresence initial={false}>
+                  <AnimatePresence>
                     {expandedYears[year] && (
                       <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ 
-                          opacity: 1, 
-                          height: 'auto',
-                          transition: { 
-                            opacity: { duration: 1 },
-                            height: { duration: 1, ease: [0.16, 1, 0.7, 1] }
-                          }
-                        }}
-                        exit={{ 
-                          opacity: 0, 
-                          height: 0,
-                          transition: { 
-                            opacity: { duration: 1 },
-                            height: { duration: 1, ease: [0.16, 1, 0.7, 1] }
-                          }
-                        }}
-                        className="overflow-hidden"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
                       >
                         {/* عرض الأشهر */}
                         {Object.keys(groupedData[year]).sort((a, b) => b - a).map((month) => {
                           const key = `${year}-${month}`;
+                          const latestSubmission = groupedData[year][month][0]; // أحدث تسليم في الشهر
+                          
                           return (
-                            <div key={month} className="mt-4">
+                            <div key={month} className="mt-4 ml-5">
                               {/* عنوان الشهر مع زر التوسيع */}
                               <motion.div
                                 onClick={() => toggleMonth(year, month)}
-                                className='flex justify-between w-40 h-12 p-2 mt-5 mr-5 bg-[#540C0F] rounded-3xl cursor-pointer'
- 
+                                className='flex justify-between items-center w-40 h-12 p-2 mt-5 mr-5 bg-[#540C0F] rounded-3xl cursor-pointer hover:bg-[#3a090b] transition-colors duration-200'
                               >
                                 <h2 className='text-2xl font-bold px-1 text-white'>{monthsMap[month]}</h2>
                                 <motion.i
@@ -165,33 +207,52 @@ export default function Previous_Submissions() {
                                 />
                               </motion.div>
                               
-                             {/* رسوم متحركة لتوسيع/طي محتوى الشهر */}
-                              <AnimatePresence initial={false}>
+                              {/* رسوم متحركة لتوسيع/طي محتوى الشهر */}
+                              <AnimatePresence>
                                 {expandedMonths[key] && (
                                   <motion.div
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ 
-                                      opacity: 1, 
-                                      height: 'auto',
-                                      transition: { 
-                                        opacity: { duration: 1 },
-                                        height: { duration: 1, ease: [0.16, 1, 0.7, 1] }
-                                      }
-                                    }}
-                                    exit={{ 
-                                      opacity: 0, 
-                                      height: 0,
-                                      transition: { 
-                                        opacity: { duration: 1 },
-                                        height: { duration: 1, ease: [0.16, 1, 0.7, 1] }
-                                      }
-                                    }}
-                                    className="overflow-hidden"
+                                    variants={containerVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="exit"
+                                    className="ml-10"
                                   >
-                                    {/* عرض التسليمات */}
-                                    {groupedData[year][month].map((submission, index) => (
+                                    {/* عرض أحدث تسليم في الشهر مع علامة "الأحدث" */}
+                                    <motion.div
+                                      variants={itemVariants}
+                                      onClick={() => navigate('/Academic_Staff_Submission_Detalis', { 
+                                        state: { 
+                                          title: latestSubmission.title,
+                                          date: latestSubmission.date,
+                                          status: latestSubmission.status,
+                                          description: latestSubmission.description,
+                                          files: latestSubmission.files || []
+                                        }
+                                      })}
+                                      className='w-135 h-20 bg-gray-100 flex px-2 justify-center mt-5 mr-5 text-[#540C0F] border border-black rounded-xl relative cursor-pointer hover:bg-gray-200 transition-colors duration-200 max-md:w-60 max-md:h-60 max-md:flex-col max-md:px-8 max-md:gap-y-5'
+                                    >
+                                      <div className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full shadow-md animate-pulse">
+                                        الأحدث
+                                      </div>
+                                      <h2 className='w-1/3 text-center mt-6 truncate' title={latestSubmission.title}>العنوان: {latestSubmission.title}</h2>
+                                      <h2 className='w-2/5 text-center mt-6 border-right border-left'>التاريخ: {latestSubmission.date}</h2>
+                                      <h2 className='w-1/3 text-center mt-6'>
+                                        الحالة:
+                                        <span className={`px-2 py-0.5 text-white text-sm rounded-3xl mr-2 ${
+                                          latestSubmission.status === 'مقبول' ? 'bg-green-500' :
+                                          latestSubmission.status === 'معلق' ? 'bg-orange-500' :
+                                          latestSubmission.status === 'مرفوض' ? 'bg-red-500' : ''
+                                        }`}>
+                                          {latestSubmission.status}
+                                        </span>
+                                      </h2>
+                                    </motion.div>
+
+                                    {/* عرض باقي التسليمات في الشهر */}
+                                    {groupedData[year][month].slice(1).map((submission, index) => (
                                       <motion.div
                                         key={index}
+                                        variants={itemVariants}
                                         onClick={() => navigate('/Academic_Staff_Submission_Detalis', { 
                                           state: { 
                                             title: submission.title,
@@ -201,18 +262,16 @@ export default function Previous_Submissions() {
                                             files: submission.files || []
                                           }
                                         })}
-                                        className='w-135 h-20 bg-gray-100 flex px-2 justify-center mt-5 mr-5 text-[#540C0F] border border-black rounded-xl relative cursor-pointer max-md:w-60 max-md:h-60 max-md:flex-col max-md:px-8 max-md:gap-y-5'
- 
+                                        className='w-135 h-20 bg-gray-100 flex px-2 justify-center mt-5 mr-5 text-[#540C0F] border border-black rounded-xl relative cursor-pointer hover:bg-gray-200 transition-colors duration-200 max-md:w-60 max-md:h-60 max-md:flex-col max-md:px-8 max-md:gap-y-5'
                                       >
                                         <h2 className='w-1/3 text-center mt-6 truncate' title={submission.title}>العنوان: {submission.title}</h2>
-                                        <h2 className='w-2/5 text-center mt-6 border-right border-left'>تاريخ التسليم: {submission.date}</h2>
+                                        <h2 className='w-2/5 text-center mt-6 border-right border-left'>التاريخ: {submission.date}</h2>
                                         <h2 className='w-1/3 text-center mt-6'>
-                                          حالة التسليم:
+                                          الحالة:
                                           <span className={`px-2 py-0.5 text-white text-sm rounded-3xl mr-2 ${
                                             submission.status === 'مقبول' ? 'bg-green-500' :
                                             submission.status === 'معلق' ? 'bg-orange-500' :
                                             submission.status === 'مرفوض' ? 'bg-red-500' : ''
-                                 
                                           }`}>
                                             {submission.status}
                                           </span>

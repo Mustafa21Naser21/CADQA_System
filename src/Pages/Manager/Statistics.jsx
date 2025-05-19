@@ -34,7 +34,7 @@ const customStyles = {
   }),
 };
 
-{/* بيانات اختيار الكلية */}
+// بيانات اختيار الكلية 
 const optionCollege = [
   { value: "", label: "كلية تكنولوجيا المعلومات" },
   { value: "", label: "كلية الرياضة" },
@@ -52,7 +52,7 @@ const optionCollege = [
   { value: "", label: "كلية اللغات" },
 ];
 
-{/* بيانات اختيار القسم */}
+// بيانات اختيار القسم 
 const optionDepartment = [
   { value: "", label: "هندسة البرمجيات" },
   { value: "", label: "الذكاء الاصطناعي و علوم البيانات" },

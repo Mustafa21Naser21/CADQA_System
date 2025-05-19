@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link,useNavigate,useLocation } from 'react-router-dom';
 
 export default function Sidebar_Employee({ open, setOpen }) {
 
@@ -21,6 +21,10 @@ export default function Sidebar_Employee({ open, setOpen }) {
       setUploadFile(false);   
     };
 
+    const location = useLocation();
+    const notificationCount = 5;
+    const isNotificationsPage = location.pathname === '/Academic_Staff_Notification';
+    const showNotification = notificationCount > 0 && !isNotificationsPage;
 
   return (
     <>
@@ -35,8 +39,9 @@ export default function Sidebar_Employee({ open, setOpen }) {
           className={`close-open-sidebar bg-white text-black w-8 h-8 rounded-full ${open ? 'left-2' : 'left-6 max-sm:left-4'} top-4 absolute cursor-pointer`}
           onClick={() => setOpen(!open)}
         >
-          <i
-            className={`fa-solid fa-arrow-right text-xl font-bold mt-2 mr-2 duration-300 ${
+          <img
+          src='/src/assets/arrow-close-open.svg'
+            className={`fa-solid fa-arrow-right text-2xl font-bold mt-1 mx-2 duration-300 ${
               !open && "rotate-180"
             }`}
           />
@@ -63,7 +68,7 @@ export default function Sidebar_Employee({ open, setOpen }) {
             { icon: "fa-file-lines", title: "التسليمات",src:'/Employee_Submissions', border: true },
             { icon: "fa-folder-open", title: "إدارة الملفات",src:'/Employee_Categorey_Management' },
             { icon: "fa-chart-simple", title: "تقارير وإحصائيات",src:'/Employee_Statistics' },
-            { icon: "fa-bullhorn", title: " الاعلانات و التنبيهات",border:true,src:'/Academic_Staff_Notification',hasBell: true },
+            { icon: "fa-bullhorn", title: " التنبيهات",border:true,src:'/Employee_Notification',hasBell: true },
             { icon: "fa-solid fa-arrow-right-from-bracket", title: "تسجيل الخروج", src:'/' },
           ].map((item, index) => (
             <div
@@ -83,12 +88,19 @@ export default function Sidebar_Employee({ open, setOpen }) {
 
               <Link to={item.src || "#"} onClick={item.action}>
               <h2
-                className={`text-xl  cursor-pointer transition-all ease-in-out ${
-                  !open && "hidden"
-                }`}
-              >
-                {item.title}
-              </h2>
+          className={`text-xl flex  cursor-pointer  transition-all ease-in-out ${
+            !open && "hidden"
+          }`}
+        >
+          {item.title}
+          {item.hasBell && showNotification && (
+           <div className='flex mr-8  '>
+           <h3 className='text-sm text-red-600 mt-1 number-notification'>{notificationCount}</h3>
+           <i className="fa-solid fa-bell text-xl mt-1 animate-bounce" />
+          </div>
+          )}
+
+        </h2>
               </Link>
             </div>
           ))}

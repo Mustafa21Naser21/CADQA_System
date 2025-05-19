@@ -44,11 +44,12 @@ export default function Sidebar_Academic_Staff({open,setOpen}) {
     className={`close-open-sidebar bg-white text-black w-8 h-8 rounded-full ${open ? 'left-2' : 'left-6 max-sm:left-4'} top-4 absolute cursor-pointer`}
     onClick={() => setOpen(!open)}
   >
-    <i
-      className={`fa-solid fa-arrow-right text-xl font-bold mt-2 mr-2 duration-300 text-[#540C0F] ${
-        !open && "rotate-180"
-      }`}
-    />
+          <img
+          src='/src/assets/arrow-close-open.svg'
+            className={`fa-solid fa-arrow-right text-2xl font-bold mt-1 mx-2 duration-300 ${
+              !open && "rotate-180"
+            }`}
+          />
   </div>
 
   {/* الملف الشخصي */}
@@ -98,8 +99,8 @@ export default function Sidebar_Academic_Staff({open,setOpen}) {
           {item.title}
           {item.hasBell && showNotification && (
            <div className='flex mr-8'>
-           <h3 className='text-sm text-red-600 number-notification'>{notificationCount}</h3>
-           <i className="fa-solid fa-bell text-xl animate-bounce" />
+           <h3 className='text-sm text-red-600 mt-1 number-notification'>{notificationCount}</h3>
+           <i className="fa-solid fa-bell text-xl mt-1 animate-bounce" />
           </div>
           )}
 

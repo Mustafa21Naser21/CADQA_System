@@ -1,14 +1,17 @@
 import React from 'react'
 import { useState,useEffect,useRef } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Chart from "chart.js/auto";
 import Sidebar_Manager from '../../Components/Sidebar/Manager';
+
 
 export default function Home() {
 
     const [open, setOpen] = useState(window.innerWidth > 640); // مغلق  على الشاشات الصغيرة
           
     const chartsRef = useRef([]);
-    const chartInstances = useRef([]); 
+    const chartInstances = useRef([]);
+    const navigate= useNavigate(); 
   
     // البيانات المتعلقة بالتسليمات
     const chartData = [
@@ -98,6 +101,9 @@ export default function Home() {
       };
     }, []);
     
+    function vistCategoryManagment(){
+      navigate('/Manager_Categorey_Management');
+    }
 
 
   return (
@@ -143,7 +149,7 @@ export default function Home() {
       </div>
 
       {/*   الكليات  */}
-      <div className="colleges title text-white text-center mt-20  text-2xl duration-300 ">
+      <div className="colleges title text-white text-center mt-20  text-2xl duration-300" onClick={vistCategoryManagment}>
         
         {[
         "كلية الطب","كلية تكنولوجيا المعلومات","كلية الهندسة","كلية الاعمال",

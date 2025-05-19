@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Chart from "chart.js/auto";
 import Sidebar_Employee from '../../Components/Sidebar/Employee';
 
@@ -6,7 +7,7 @@ export default function Home() {
   const [open, setOpen] = useState(window.innerWidth > 640);
   const chartsRef = useRef([]);
   const chartInstances = useRef([]); // تخزين الكائنات لإنهائها عند إعادة الإنشاء
-
+  const navigate = useNavigate();
   const chartData = [
     { title: "التسليمات المعلقة", percentage: 55, color: "#8B171C" },
     { title: "المتطلبات التي تم تسليمها", percentage: 95, color: "#8B171C" },
@@ -92,6 +93,10 @@ export default function Home() {
       chartInstances.current.forEach((instance) => instance?.destroy());
     };
   }, []);
+
+  function vistCategoryManagment(){
+    navigate('/Employee_Categorey_Management');
+  }
   
   return (
     <>
@@ -134,7 +139,7 @@ export default function Home() {
               </div>
 
               {/*  قائمة الكليات */}
-              <div className="colleges title text-white text-center mt-20 text-2xl duration-300">
+              <div className="colleges title text-white text-center mt-20 text-2xl duration-300" onClick={vistCategoryManagment}>
                 {[
                   "كلية الطب", "كلية تكنولوجيا المعلومات", "كلية الهندسة",
                    "كلية الاعمال","كلية الاداب","كلية الشريعة",
