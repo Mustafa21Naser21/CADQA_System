@@ -215,7 +215,7 @@ export default function Sidebar_Manager({ open, setOpen }) {
               
               <i
                 title={item.title}
-                className={`fa-solid ${item.icon} text-2xl ml-4 hover:text-[#540C0F] mt-4 ${!open ? "mx-auto" : ""} ${open ? "" : "translate-x-4"}`}
+                className={`fa-solid ${item.icon} text-2xl ml-4 hover:text-[#540C0F] mt-4 ${!open ? "mx-auto" : ""} ${open ? "" : "translate-x-4 max-md:translate-x-2"}`}
               />
             
               {open && (
