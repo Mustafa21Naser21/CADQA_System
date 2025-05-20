@@ -34,6 +34,7 @@ import Employee_Submissions from './Pages/Employee/Submissions';
 import Employee_Notification from './Pages/Employee/Notification';
 import Employee_File_Details from './Pages/Employee/Fille_Details';
 import Employee_Edit_File from './Pages/Employee/Edit_File';
+import Employee_Faculty_Files from './Pages/Employee/Faculty_Files';
 
 function App() {
   return (
@@ -72,6 +73,7 @@ function App() {
           <Route path='Employee_Notification' element={<Employee_Notification />} />
           <Route path='Employee_File_Details' element={<Employee_File_Details />} />
           <Route path='Employee_Edit_File' element={<Employee_Edit_File />} />
+          <Route path='Employee_Faculty_Files' element={<Employee_Faculty_Files />} />
 
         </Routes>
       </BrowserRouter>

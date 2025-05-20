@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState,useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Sidebar_Employee from '../../Components/Sidebar/Employee';
 
 export default function Categorey_Management() {
@@ -50,9 +51,11 @@ export default function Categorey_Management() {
                    "كلية الاعمال","كلية الاداب","كلية الشريعة",
                     "كلية العلوم","كلية الصيدلة","كلية الرياضة","كلية العلوم التربوية",
                     "كلية التمريض","كلية طب الاسنان","الحوكمة","التخطيط الاستراتيجي"].map((college, index) => (
+                   <Link to={'/Employee_Faculty_Files'}>
                   <div key={index}  className="w-46 h-46 bg-[#611013] relative rounded-2xl cursor-pointer hover:scale-105 duration-300">
                     <h2 className="centerd">{college}</h2>
                   </div>
+                  </Link>
                 ))}
               </div>
             </div>
